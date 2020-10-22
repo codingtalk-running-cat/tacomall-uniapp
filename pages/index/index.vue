@@ -3,7 +3,7 @@
         <view class="i-header">
             <view class="h-top">
                 <view class="t-logo">
-                    <img src="../../static/image/navi_title_v4.png">
+                    <image src="../../static/image/navi_title_v4.png" />
                 </view>
                 <view class="t-search" @tap="nav('/pages/search/index')">
                     <view class="s-left">
@@ -26,10 +26,16 @@
             </view>
         </view>
         <view class="i-banner">
-            <swiper class="b-swiper" :indicator-dots="true" :autoplay="true" interval="2000" duration="3000">
+            <swiper
+                class="b-swiper"
+                :indicator-dots="true"
+                :autoplay="true"
+                interval="2000"
+                duration="3000"
+            >
                 <swiper-item :key="key" v-for="(item, key) in pageInfo.activity">
                     <view class="s-item">
-                        <image src="https://yanxuan.nosdn.127.net/456abfb6e481a941444e8840005c88ed.jpg?imageView&quality=75&thumbnail=750x0"></image>
+                        <image :src="item.cover" />
                     </view>
                 </swiper-item>
             </swiper>
@@ -50,7 +56,7 @@
         </view>
         <view class="i-category">
             <view class="c-item" :key="key" v-for="(item, key) in 10">
-                <image src="http://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"></image>
+                <image src="http://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" />
                 <text>居家生活</text>
             </view>
         </view>
@@ -80,7 +86,9 @@
             <view class="f-content">
                 <view class="c-item" :key="key" v-for="(item, key) in 6">
                     <view class="i-image">
-                        <image src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"></image>
+                        <image
+                            src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
+                        />
                     </view>
                     <view class="i-price">
                         <text>￥3.2</text>
@@ -105,7 +113,9 @@
                         <text>海外制造商</text>
                         <text>24元起</text>
                     </view>
-                    <image src="http://yanxuan.nosdn.127.net/74e2ea8f81004d0a60f90fc8e4649058.png?imageView&thumbnail=343y260&enlarge=1"></image>
+                    <image
+                        src="http://yanxuan.nosdn.127.net/74e2ea8f81004d0a60f90fc8e4649058.png?imageView&thumbnail=343y260&enlarge=1"
+                    />
                 </view>
             </view>
         </view>
@@ -122,7 +132,9 @@
             <view class="n-content">
                 <view class="c-item" :key="key" v-for="(item, key) in 6">
                     <view class="i-image">
-                        <image src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"></image>
+                        <image
+                            src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
+                        />
                     </view>
                     <view class="i-price">
                         <text>￥3.2</text>
@@ -135,30 +147,30 @@
 </template>
 
 <script>
-    export default {
-       data () {
-           return {
-                pageInfo: {
-                    activity: []
+export default {
+    data() {
+        return {
+            pageInfo: {
+                activity: []
+            }
+        }
+    },
+    methods: {
+        init() {
+            this.$api.page.info({ page: 'index' }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    this.pageInfo.activity = data.activity
                 }
-           }
-       },
-       methods: {
-           init () {
-               this.$api.page.info({page: 'index'}).then(res => {
-                   const {status, data} = res
-                   if (status) {
-                       this.pageInfo.activity = data.activity
-                   }
-               })
-           }
-       },
-       onLoad () {
-           this.init()
-       } 
+            })
+        }
+    },
+    onLoad() {
+        this.init()
     }
+}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>

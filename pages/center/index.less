@@ -133,6 +133,7 @@
 		.o-content{
 			display: flex;
 			.c-item{
+				position: relative;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -148,6 +149,22 @@
 						padding-top:10rpx;
 						color:#666;
 					}
+				}
+				.i-tag{
+					position: absolute;
+					top:30rpx;
+					right:30rpx;
+					display: inline-block;
+					width: 30rpx;
+					height: 20rpx;
+					box-sizing: border-box;
+					text-align: center;
+					line-height: 20rpx;
+					border-radius: 10rpx;
+					font-size: 18rpx;
+					background: white;
+					border: 1rpx solid #e33e33;
+					color:#e33e33;
 				}
 				&:not(:first-child){
 					margin-left:50rpx;

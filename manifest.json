@@ -1,7 +1,7 @@
 {
-    "name" : "tacoshop-uniapp",
+    "name" : "tacomall-uniapp",
     "appid" : "__UNI__F2DA859",
-    "description" : "open-tacoshop-uniapp，基于uniapp开发的适用于微信小程序，头条小程序，支付宝小程序，H5端的商城",
+    "description" : "tacomall-uniapp，基于uniapp开发的适用于微信小程序，头条小程序，支付宝小程序，H5端的商城",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,

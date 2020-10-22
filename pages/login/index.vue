@@ -7,20 +7,12 @@
             <view class="w-form">
                 <view class="f-input">
                     <view class="i-item">
-                        <input
-                            type="text"
-                            placeholder="请输入手机号"
-                            v-model="form.mobile"
-                        />
+                        <input type="text" placeholder="请输入手机号" v-model="form.mobile" />
                     </view>
                     <view class="i-item">
                         <input type="password" placeholder="请输入验证码" />
-                        <text class="btn btn-disable" v-if="time"
-                            >{{ time }}S后重发</text
-                        >
-                        <text class="btn" v-else @tap="sendCode"
-                            >获取验证码</text
-                        >
+                        <text class="btn btn-disable" v-if="time">{{ time }}S后重发</text>
+                        <text class="btn" v-else @tap="sendCode">获取验证码</text>
                     </view>
                 </view>
                 <view class="f-btn">
@@ -37,24 +29,14 @@
                 </view>
                 <view class="t-entry">
                     <view class="e-item">
-                        <text class="iconfont" style="color: #ff8200"
-                            >&#xe61b;</text
-                        >
+                        <text class="iconfont" style="color: #ff8200">&#xe61b;</text>
                     </view>
                     <view class="e-item">
-                        <text class="iconfont" style="color: #07c160"
-                            >&#xe7e5;</text
-                        >
-                        <button
-                            open-type="getUserInfo"
-                            lang="zh_CN"
-                            @getuserinfo="doWeixinLogin"
-                        ></button>
+                        <text class="iconfont" style="color: #07c160">&#xe7e5;</text>
+                        <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="doWeixinLogin"></button>
                     </view>
                     <view class="e-item">
-                        <text class="iconfont" style="color: #007fff"
-                            >&#xe64b;</text
-                        >
+                        <text class="iconfont" style="color: #007fff">&#xe64b;</text>
                     </view>
                 </view>
             </view>
@@ -66,7 +48,6 @@
 import { validate } from '../../utils/validate'
 import { token } from '../../utils/token'
 import { mapActions } from 'vuex'
-import { appConfig } from '../../config'
 export default {
     data() {
         return {
@@ -78,7 +59,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions('user', ['getUserInfo']),
+        ...mapActions('user', ['login', 'getUserInfo']),
         sendCode() {
             if (!this.form.mobile) {
                 this.toast('手机号必填')
@@ -103,36 +84,12 @@ export default {
             if (!o.detail.iv) {
                 return
             }
-            uni.login({
-                provider: 'weixin',
-                success: res => {
-                    uni.getUserInfo({
-                        provider: 'weixin',
-                        withCredentials: true,
-                        lang: 'zh_CN',
-                        success: e => {
-                            this.$api.user
-                                .wxMaLogin({
-                                    appid: appConfig.wx.appid,
-                                    code: res.code,
-                                    iv: e.iv,
-                                    rawData: e.rawData,
-                                    signature: e.signature,
-                                    encryptedData: e.encryptedData
-                                })
-                                .then(resp => {
-                                    if (resp.status) {
-                                        token.set(resp.data);
-                                        this.getUserInfo().then(() => {
-                                            this.swi('/pages/index/index')
-                                        })
-                                    } else {
-                                        this.toast('服务器出小差啦')
-                                    }
-                                })
-                        }
-                    })
-                }
+            this.login().then(() => {
+                this.getUserInfo().then(() => {
+                    this.swi('/pages/index/index')
+                })
+            }).catch(() => {
+                this.toast('服务器出小差啦')
             })
         }
     }

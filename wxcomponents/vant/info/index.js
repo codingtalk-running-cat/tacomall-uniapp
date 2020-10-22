@@ -1,7 +1,8 @@
 import { VantComponent } from '../common/component';
 VantComponent({
-    props: {
-        info: null,
-        customStyle: String
-    }
+  props: {
+    dot: Boolean,
+    info: null,
+    customStyle: String,
+  },
 });

@@ -1,10 +1,10 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-06-13 10:11:31
+ * @LastEditTime: 2020-10-21 15:59:45
  * @LastEditors: 码上talk|RC
  * @Description: 
- * @FilePath: \tacomall-uniapp\pages\center\index.vue
+ * @FilePath: /tacomall-uniapp/pages/center/index.vue
  * @Just do what I think it is right
 --> 
 <template>
@@ -58,18 +58,28 @@
                 <view class="c-item">
                     <text class="iconfont">&#xe673;</text>
                     <text class="i-text">待付款</text>
+                    <text
+                        class="i-tag"
+                        v-if="userInfo.orderNonPaymentCount"
+                    >{{userInfo.orderNonPaymentCount}}</text>
                 </view>
                 <view class="c-item">
                     <text class="iconfont">&#xe62f;</text>
                     <text class="i-text">待收货</text>
+                    <text class="i-tag" v-if="userInfo.orderPaidCount">{{userInfo.orderPaidCount}}</text>
                 </view>
                 <view class="c-item">
                     <text class="iconfont">&#xe672;</text>
                     <text class="i-text">待评价</text>
+                    <text class="i-tag" v-if="userInfo.orderDoneCount">{{userInfo.orderDoneCount}}</text>
                 </view>
                 <view class="c-item">
                     <text class="iconfont">&#xe622;</text>
                     <text class="i-text">退款/售后</text>
+                    <text
+                        class="i-tag"
+                        v-if="userInfo.orderReturnCount"
+                    >{{userInfo.orderReturnCount}}</text>
                 </view>
             </view>
         </view>

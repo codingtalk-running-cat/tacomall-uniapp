@@ -22,14 +22,14 @@
   bindgetphonenumber="bindGetPhoneNumber"
   bindlaunchapp="bindLaunchApp"
 >
-  <view class="van-goods-action-icon__content van-hairline--right">
-    <van-icon
-      size="20px"
-      name="{{ icon }}"
-      info="{{ info }}"
-      class="van-goods-action-icon__icon"
-      custom-class="icon-class"
-    />
-    <text class="text-class">{{ text }}</text>
-  </view>
+  <van-icon
+    wx:if="{{ icon }}"
+    name="{{ icon }}"
+    dot="{{ dot }}"
+    info="{{ info }}"
+    class="van-goods-action-icon__icon"
+    custom-class="icon-class"
+  />
+  <slot wx:else name="icon" />
+  <text class="text-class">{{ text }}</text>
 </van-button>

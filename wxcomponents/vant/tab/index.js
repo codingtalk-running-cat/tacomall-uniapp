@@ -1,35 +1,59 @@
 import { VantComponent } from '../common/component';
 VantComponent({
-    relation: {
-        name: 'tabs',
-        type: 'ancestor'
+  relation: {
+    name: 'tabs',
+    type: 'ancestor',
+    current: 'tab',
+  },
+  props: {
+    dot: {
+      type: Boolean,
+      observer: 'update',
     },
-    props: {
-        dot: Boolean,
-        info: null,
-        title: String,
-        disabled: Boolean,
-        titleStyle: String
+    info: {
+      type: null,
+      observer: 'update',
     },
-    data: {
-        width: null,
-        inited: false,
-        active: false,
-        animated: false
+    title: {
+      type: String,
+      observer: 'update',
     },
-    watch: {
-        title: 'update',
-        disabled: 'update',
-        dot: 'update',
-        info: 'update',
-        titleStyle: 'update'
+    disabled: {
+      type: Boolean,
+      observer: 'update',
     },
-    methods: {
-        update() {
-            const parent = this.getRelationNodes('../tabs/index')[0];
-            if (parent) {
-                parent.updateTabs();
-            }
-        }
-    }
+    titleStyle: {
+      type: String,
+      observer: 'update',
+    },
+    name: {
+      type: [Number, String],
+      value: '',
+    },
+  },
+  data: {
+    active: false,
+  },
+  methods: {
+    getComputedName() {
+      if (this.data.name !== '') {
+        return this.data.name;
+      }
+      return this.index;
+    },
+    updateRender(active, parent) {
+      const { data: parentData } = parent;
+      this.inited = this.inited || active;
+      this.setData({
+        active,
+        shouldRender: this.inited || !parentData.lazyRender,
+        shouldShow: active || parentData.animated,
+      });
+    },
+    update() {
+      if (this.parent) {
+        this.parent.updateTabs();
+      }
+    },
+  },
 });

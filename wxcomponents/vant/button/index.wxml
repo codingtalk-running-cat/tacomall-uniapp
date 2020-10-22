@@ -2,10 +2,13 @@
 
 <button
   id="{{ id }}"
+  data-detail="{{ dataset }}"
   class="custom-class {{ utils.bem('button', [type, size, { block, round, plain, square, loading, disabled, hairline, unclickable: disabled || loading }]) }} {{ hairline ? 'van-hairline--surround' : '' }}"
-  open-type="{{ openType }}"
   hover-class="van-button--active hover-class"
   lang="{{ lang }}"
+  form-type="{{ formType }}"
+  style="{{ baseStyle }} {{ customStyle }}"
+  open-type="{{ disabled ? '' : openType }}"
   business-id="{{ businessId }}"
   session-from="{{ sessionFrom }}"
   send-message-title="{{ sendMessageTitle }}"
@@ -14,7 +17,7 @@
   show-message-card="{{ showMessageCard }}"
   app-parameter="{{ appParameter }}"
   aria-label="{{ ariaLabel }}"
-  bindtap="onClick"
+  bindtap="{{ !disabled ? 'onClick' : 'noop' }}"
   bindgetuserinfo="bindGetUserInfo"
   bindcontact="bindContact"
   bindgetphonenumber="bindGetPhoneNumber"
@@ -26,12 +29,10 @@
     <van-loading
       custom-class="loading-class"
       size="{{ loadingSize }}"
-      color="{{ type === 'default' ? '#c9c9c9' : '' }}"
+      type="{{ loadingType }}"
+      color="{{ loadingColor(type,color,plain) }}"
     />
-    <view
-      wx:if="{{ loadingText }}"
-      class="van-button__loading-text"
-    >
+    <view wx:if="{{ loadingText }}" class="van-button__loading-text">
       {{ loadingText }}
     </view>
   </block>
@@ -40,6 +41,7 @@
       wx:if="{{ icon }}"
       size="1.2em"
       name="{{ icon }}"
+      class-prefix="{{ classPrefix }}"
       class="van-button__icon"
       custom-style="line-height: inherit;"
     />
@@ -48,3 +50,19 @@
     </view>
   </block>
 </button>
+
+
+<wxs module="loadingColor">
+function get(type, color,plain) {
+  if(plain) {
+    return color ? color: '#c9c9c9';
+  }
+
+  if(type === 'default') {
+    return '#c9c9c9';
+  }
+  return 'white';
+}
+
+module.exports = get;
+</wxs>
