@@ -86,10 +86,14 @@
 		.b-swiper {
 			height: 370rpx;
 			.s-item {
+				position: relative;
 				height: 100%;
 				width: 100%;
-				img {
-					width: 100%;
+				image {
+					position: absolute;
+					top:50%;
+					left:50%;
+					transform: translate(-50%, -50%);
 					height: 100%;
 				}
 			}

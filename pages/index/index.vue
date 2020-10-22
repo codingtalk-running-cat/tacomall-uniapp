@@ -15,11 +15,11 @@
             <view class="h-bottom">
                 <scroll-view>
                     <view class="b-tabs">
-                        <view class="t-item t-item-active">
-                            <text>服装</text>
-                        </view>
                         <view class="t-item">
-                            <text>首饰</text>
+                            <text>推荐</text>
+                        </view>
+                        <view class="t-item" :key="key" v-for="(item, key) in floorLinks">
+                            <text>{{item.name}}</text>
                         </view>
                     </view>
                 </scroll-view>
@@ -55,9 +55,9 @@
             </view>
         </view>
         <view class="i-category">
-            <view class="c-item" :key="key" v-for="(item, key) in 10">
+            <view class="c-item" :key="key" v-for="(item, key) in pageInfo.category">
                 <image src="http://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" />
-                <text>居家生活</text>
+                <text>{{item.name}}</text>
             </view>
         </view>
         <view class="i-flash">
@@ -97,52 +97,54 @@
                 </view>
             </view>
         </view>
-        <view class="i-direct-supply">
-            <view class="s-header">
-                <div class="h-left">
-                    <text>品牌制造商直供</text>
-                </div>
-                <div class="h-right">
-                    <text>更多</text>
-                    <text class="iconfont">&#xe93d;</text>
-                </div>
-            </view>
-            <view class="s-content">
-                <view class="c-item" :key="key" v-for="(item, key) in 4">
-                    <view class="i-desc">
-                        <text>海外制造商</text>
-                        <text>24元起</text>
-                    </view>
-                    <image
-                        src="http://yanxuan.nosdn.127.net/74e2ea8f81004d0a60f90fc8e4649058.png?imageView&thumbnail=343y260&enlarge=1"
-                    />
+        <template v-for="(item, key) in pageInfo.floor">
+            <view class="i-direct-supply" :key="key" v-if="item.id == 3">
+                <view class="s-header">
+                    <div class="h-left">
+                        <text>{{item.name}}</text>
+                    </div>
+                    <div class="h-right">
+                        <text>更多</text>
+                        <text class="iconfont">&#xe93d;</text>
+                    </div>
                 </view>
-            </view>
-        </view>
-        <view class="i-newest">
-            <view class="n-header">
-                <div class="h-left">
-                    <text>新品上市</text>
-                </div>
-                <div class="h-right">
-                    <text>更多</text>
-                    <text class="iconfont">&#xe93d;</text>
-                </div>
-            </view>
-            <view class="n-content">
-                <view class="c-item" :key="key" v-for="(item, key) in 6">
-                    <view class="i-image">
+                <view class="s-content">
+                    <view class="c-item" :key="key" v-for="(item, key) in item.goods">
+                        <view class="i-desc">
+                            <text>海外制造商</text>
+                            <text>24元起</text>
+                        </view>
                         <image
-                            src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
+                            src="http://yanxuan.nosdn.127.net/74e2ea8f81004d0a60f90fc8e4649058.png?imageView&thumbnail=343y260&enlarge=1"
                         />
                     </view>
-                    <view class="i-price">
-                        <text>￥3.2</text>
-                        <text>￥5.0</text>
+                </view>
+            </view>
+            <view class="i-newest" :key="key" v-if="item.id == 7">
+                <view class="n-header">
+                    <div class="h-left">
+                        <text>{{item.name}}</text>
+                    </div>
+                    <div class="h-right">
+                        <text>更多</text>
+                        <text class="iconfont">&#xe93d;</text>
+                    </div>
+                </view>
+                <view class="n-content">
+                    <view class="c-item" :key="key" v-for="(item, key) in item.goods">
+                        <view class="i-image">
+                            <image
+                                src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
+                            />
+                        </view>
+                        <view class="i-price">
+                            <text>￥3.2</text>
+                            <text>￥5.0</text>
+                        </view>
                     </view>
                 </view>
             </view>
-        </view>
+        </template>
     </view>
 </template>
 
@@ -151,8 +153,20 @@ export default {
     data() {
         return {
             pageInfo: {
-                activity: []
+                floor: [],
+                activity: [],
+                category: []
             }
+        }
+    },
+    computed: {
+        floorLinks() {
+            return this.pageInfo.floor.map(i => {
+                return {
+                    id: i.id,
+                    name: i.name
+                }
+            })
         }
     },
     methods: {
@@ -160,7 +174,9 @@ export default {
             this.$api.page.info({ page: 'index' }).then(res => {
                 const { status, data } = res
                 if (status) {
+                    this.pageInfo.floor = data.floor
                     this.pageInfo.activity = data.activity
+                    this.pageInfo.category = data.category
                 }
             })
         }
