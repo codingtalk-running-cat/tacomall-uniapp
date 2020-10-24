@@ -184,42 +184,45 @@
 					padding:34rpx 28rpx 52rpx 28rpx;
 					background: white;
 					.s-recommend {
-						display: flex;
-						height: 110rpx;
 						
-						.r-pic {
-							flex-basis: 110rpx;
-							image {
-								width: 100%;
-								height: 100%;
-							}
-						}
-						
-						.r-info {
+						.r-item{
 							display: flex;
-							flex-direction: column;
-							justify-content: center;
-							flex: 1;
+							height: 110rpx;
 							
-							.i-name {
-								color: #333;
+							.i-pic {
+								flex-basis: 110rpx;
+								image {
+									width: 100%;
+									height: 100%;
+								}
 							}
 							
-							.i-price {
-								padding-top: 10rpx;
-								color: #666;
+							.i-info {
+								display: flex;
+								flex-direction: column;
+								justify-content: center;
+								flex: 1;
+								
+								.i-name {
+									color: #333;
+								}
+								
+								.i-price {
+									padding-top: 10rpx;
+									color: #666;
+								}
 							}
-						}
-						
-						.r-buy {
-							display: flex;
-							align-items: center;
-							flex-grow: 0;
-							text{
-								color:@primary-color
-							}
-							.iconfont{
-								font-size: 40rpx;
+							
+							.i-buy {
+								display: flex;
+								align-items: center;
+								flex-grow: 0;
+								text{
+									color:@primary-color
+								}
+								.iconfont{
+									font-size: 40rpx;
+								}
 							}
 						}
 					}

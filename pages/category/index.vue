@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-22 21:40:13
+ * @LastEditTime: 2020-10-24 15:00:42
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/category/index.vue
@@ -54,7 +54,7 @@
                                     />
                                 </view>
                                 <view class="item-name">
-                                    <text>{{item.name}}</text>
+                                    <text>{{item1.name}}</text>
                                 </view>
                             </view>
                         </view>

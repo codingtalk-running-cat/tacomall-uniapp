@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-21 16:59:38
+ * @LastEditTime: 2020-10-24 14:59:24
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/store/user/actions.js
@@ -26,6 +26,7 @@ export const actions = {
                             api.user
                                 .wxMaLogin({
                                     appid: appConfig.wx.appid,
+                                }, {
                                     code: res.code,
                                     iv: e.iv,
                                     rawData: e.rawData,

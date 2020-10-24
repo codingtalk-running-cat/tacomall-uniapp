@@ -1,28 +1,40 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-06-13 09:42:44
+ * @LastEditTime: 2020-10-24 14:08:29
  * @LastEditors: 码上talk|RC
  * @Description: 
- * @FilePath: \tacomall-uniapp\libs\request.js
+ * @FilePath: /tacomall-uniapp/libs/request.js
  * @Just do what I think it is right
- */ 
+ */
 import { appConfig } from '../config'
 import { token } from '../utils/token'
 
-const send = (url, data = {}, method = 'POST', showLoading = true, base_url = '') => {
+const send = (url, params, data, method = 'POST', showLoading = true, base_url = '') => {
     uni.showLoading({
         title: '加载中'
     })
     return new Promise((resolve) => {
+        let strParams = ''
+        let i = 0
+        for (let k in params) {
+            let q = ''
+            if (i === 0) {
+                q = '?'
+            } else {
+                q = '&'
+            }
+            strParams = strParams + q + k + '=' + params[k]
+            i++
+        }
         uni.request({
             method: method,
-            url: (base_url ? base_url : appConfig.apiUrl) + url,
+            url: (base_url ? base_url : appConfig.apiUrl) + url + strParams,
             data: data,
             header: (() => {
                 const tokeValue = token.get()
                 let config = {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json'
                 }
                 if (tokeValue) {
                     config[appConfig.tokenKey] = tokeValue
@@ -38,10 +50,7 @@ const send = (url, data = {}, method = 'POST', showLoading = true, base_url = ''
 }
 
 export const request = {
-    get: (url, data) => {
-        return send(url, data, 'GET')
-    },
-    post: (url, data) => {
-        return send(url, data, 'POST')
+    post: (url, params, data = {}) => {
+        return send(url, params, data, 'POST')
     }
 }

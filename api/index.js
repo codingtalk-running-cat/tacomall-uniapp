@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-07-29 09:36:32
+ * @LastEditTime: 2020-10-24 13:05:08
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/api/index.js
@@ -11,8 +11,10 @@
  */
 import page from './mudules/page'
 import user from './mudules/user'
+import goods from './mudules/goods'
 
 export default {
     page,
-    user
+    user,
+    goods
 }

@@ -4,10 +4,15 @@
             <view class="h-top">
                 <view class="t-search">
                     <text class="iconfont">&#xe652;</text>
-                    <input type="search" placeholder="小米超级品牌日" v-model="form.keyword">
+                    <input
+                        type="search"
+                        placeholder="小米超级品牌日"
+                        v-model="form.keyword"
+                        @focus="inputFocusHandler"
+                    />
                     <text class="iconfont clear">&#xe61a;</text>
                 </view>
-                <view class="t-right" @click="doSearch">
+                <view class="t-right" @click="resetSearch();doSearch()">
                     <text>搜索</text>
                 </view>
             </view>
@@ -39,17 +44,19 @@
                         <view class="h-left">
                             <text>热门搜索</text>
                         </view>
-                        <view class="h-right">
-                        </view>
+                        <view class="h-right"></view>
                     </view>
                     <view class="se-content">
                         <view class="f-hot">
-                            <text>小米手机</text>
-                            <text>Gucci</text>
+                            <text
+                                :key="key"
+                                @tap="selectTag(item)"
+                                v-for="(item, key) in pageInfo.hot"
+                            >{{item}}</text>
                         </view>
                     </view>
                 </view>
-                <view class="s-section">
+                <view class="s-section" v-if="pageInfo.history.length">
                     <view class="se-header">
                         <view class="h-left">
                             <text>历史纪录</text>
@@ -60,7 +67,11 @@
                     </view>
                     <view class="se-content">
                         <view class="f-history">
-                            <text>华为手机</text>
+                            <text
+                                :key="key"
+                                @tap="selectTag(item)"
+                                v-for="(item, key) in pageInfo.history"
+                            >{{item}}</text>
                         </view>
                     </view>
                 </view>
@@ -74,16 +85,24 @@
                     </view>
                     <view class="se-content" style="padding:0.37333rem;">
                         <view class="s-recommend">
-                            <view class="r-pic">
-                                <image src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"></image>
-                            </view>
-                            <view class="r-info">
-                                <text class="i-name">小米8</text>
-                                <text class="i-price">￥2499.00</text>
-                            </view>
-                            <view class="r-buy">
-                                <text>选购</text>
-                                <text class="iconfont">&#xe6af;</text>
+                            <view
+                                class="r-item"
+                                :key="key"
+                                v-for="(item, key) in pageInfo.recommend"
+                            >
+                                <view class="i-pic">
+                                    <image
+                                        src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"
+                                    />
+                                </view>
+                                <view class="i-info">
+                                    <text class="i-name">{{item.name}}</text>
+                                    <text class="i-price">￥2499.00</text>
+                                </view>
+                                <view class="i-buy">
+                                    <text>选购</text>
+                                    <text class="iconfont">&#xe6af;</text>
+                                </view>
                             </view>
                         </view>
                     </view>
@@ -96,9 +115,9 @@
                     </view>
                     <view class="se-content" style="padding:0.37333rem;">
                         <view class="s-hot">
-                            <view class="h-item" :key="key" v-for="(item, key) in 3">
+                            <view class="h-item" :key="key" v-for="(item, key) in pageInfo.most">
                                 <view class="i-left">
-                                    <text>华为play</text>
+                                    <text>{{item.name}}</text>
                                 </view>
                                 <view class="i-right">
                                     <text>￥1999.00</text>
@@ -109,14 +128,20 @@
                 </view>
             </view>
             <view class="m-third" v-else>
-                <view class="t-item border-1px-bottom" :key="key" v-for="(item, key) in 5">
-                    <view class="s-goods" @tap="nav('/pages/goods/index')">
+                <view
+                    class="t-item border-1px-bottom"
+                    :key="key"
+                    v-for="(item, key) in  pageInfo.searchResult"
+                >
+                    <view class="s-goods" @tap="navToGoodsDetail(item)">
                         <view class="g-top">
                             <view class="t-pic">
-                                <image src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"></image>
+                                <image
+                                    src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"
+                                />
                             </view>
                             <view class="t-desc">
-                                <text>小米手机，更好用的大屏手机</text>
+                                <text>{{item.name}}</text>
                             </view>
                         </view>
                         <view class="g-bottom">
@@ -135,23 +160,73 @@
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                step: 3,
-                form: {
-                    keyword: ''
-                }
-            }
-        },
-        methods: {
-            doSearch () {
-                this.step = 3
+import { historySearch } from '../../utils/history-search'
+export default {
+    data() {
+        return {
+            step: 1,
+            form: {
+                keyword: '',
+                searchResultPageIndex: 1,
+                searchResultPageSize: 10,
+            },
+            pageInfo: {
+                history: [],
+                hot: [],
+                recommend: [],
+                most: [],
+                searchResult: []
             }
         }
+    },
+    methods: {
+        init() {
+            this.pageInfo.history = historySearch.get()
+            this.$api.page.info({ page: 'search' }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    this.pageInfo.hot = data.hot
+                    this.pageInfo.recommend = data.recommend
+                    this.pageInfo.most = data.most
+                }
+            })
+        },
+        inputFocusHandler() {
+            this.step = 2
+        },
+        selectTag(s) {
+            this.form.keyword = s
+            this.doSearch()
+        },
+        resetSearch() {
+            this.form.searchResultPageIndex = 1
+            this.pageInfo.searchResult = []
+        },
+        doSearch() {
+            this.$api.goods.page({
+                pageIndex: this.form.searchResultPageIndex,
+                pageSize: this.form.searchResultPageSize
+            }, {
+                query: { keyword: this.form.keyword },
+                order: {}
+            }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    data.forEach(i => {
+                        this.pageInfo.searchResult.push(i)
+                    })
+                    this.step = 3
+                    this.form.searchResultPageIndex++
+                }
+            })
+        }
+    },
+    onLoad() {
+        this.init()
     }
+}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>
