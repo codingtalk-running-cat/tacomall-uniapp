@@ -42,7 +42,9 @@
             <view class="g-content border-1px-top border-1px-bottom">
                 <view class="c-item">
                     <view class="i-pic">
-                        <image src="https://static.home.mi.com/app/shop/img?id=shop_f4e9e198a07c9888cd3a4295a0f54b0b.jpeg&w=240&h=240"></image>
+                        <image
+                            src="https://static.home.mi.com/app/shop/img?id=shop_f4e9e198a07c9888cd3a4295a0f54b0b.jpeg&w=240&h=240"
+                        />
                     </view>
                     <view class="i-info">
                         <view class="i-name">
@@ -97,9 +99,9 @@
 </template>
 
 <script>
-    export default {}
+export default {}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>

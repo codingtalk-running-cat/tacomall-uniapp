@@ -19,7 +19,9 @@
             <view class="c-cell">
                 <view class="c-user">
                     <view class="user-left">
-                        <image src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p013qAccs3i9/WT2sfu9guuY496.jpg"></image>
+                        <image
+                            src="https://s1.mi-img.com/mfsv2/avatar/fdsc3/p013qAccs3i9/WT2sfu9guuY496.jpg"
+                        />
                         <text>taco</text>
                     </view>
                 </view>
@@ -28,10 +30,10 @@
                 </view>
                 <view class="c-pic">
                     <view class="pic-item">
-                        <image src="http://i1.mifile.cn/a2/1534312684_9824811_s1008_567wh.jpg"></image>
+                        <image src="http://i1.mifile.cn/a2/1534312684_9824811_s1008_567wh.jpg" />
                     </view>
                     <view class="pic-item">
-                        <image src="http://i1.mifile.cn/a2/1534312684_9824811_s1008_567wh.jpg"></image>
+                        <image src="http://i1.mifile.cn/a2/1534312684_9824811_s1008_567wh.jpg" />
                     </view>
                 </view>
                 <view class="c-action">
@@ -54,9 +56,9 @@
 </template>
 
 <script>
-    export default {}
+export default {}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>

@@ -1,8 +1,7 @@
 <template>
     <view class="page goods">
         <view class="g-header">
-            <view class="h-left">
-            </view>
+            <view class="h-left"></view>
             <view class="h-middle">
                 <view class="m-item m-item-active">
                     <text>商品</text>
@@ -23,19 +22,23 @@
             <swiper :indicator-dots="true" :autoplay="true" interval="2000" duration="3000">
                 <swiper-item>
                     <view class="b-image">
-                        <image src="http://yanxuan.nosdn.127.net/4593d6fa1259e061e02b9c54a2ddb460.jpg?imageView&quality=75&thumbnail=750x0"></image>
+                        <image
+                            src="http://yanxuan.nosdn.127.net/4593d6fa1259e061e02b9c54a2ddb460.jpg?imageView&quality=75&thumbnail=750x0"
+                        />
                     </view>
                 </swiper-item>
                 <swiper-item>
                     <view class="b-image">
-                        <image src="http://yanxuan.nosdn.127.net/6cb81bcc1e3292014adabf65bc3fe5ff.jpg?imageView&quality=75&thumbnail=750x0"></image>
+                        <image
+                            src="http://yanxuan.nosdn.127.net/6cb81bcc1e3292014adabf65bc3fe5ff.jpg?imageView&quality=75&thumbnail=750x0"
+                        />
                     </view>
                 </swiper-item>
             </swiper>
         </view>
         <view class="g-info">
             <view class="i-name">
-                <text>小米8 SE</text>
+                <text>{{pageInfo.goods.name}}</text>
             </view>
             <view class="i-desc">
                 <text>骁龙710处理器 / AI 超感光双摄 / 5.88" 全面屏 / 前置2000万柔光自拍 / 三星 AMOLED 屏幕 / 3120mAh 长续航</text>
@@ -48,7 +51,7 @@
             </view>
         </view>
         <view class="g-count">
-            <view class="g-cell">
+            <view class="g-cell" @tap="openPopup('popupCounter')">
                 <view class="c-left">
                     <text>数量：</text>
                 </view>
@@ -61,7 +64,7 @@
             </view>
         </view>
         <view class="g-spec">
-            <view class="g-cell">
+            <view class="g-cell" @tap="openPopup('popupSpec')">
                 <view class="c-left">
                     <text>规格：</text>
                 </view>
@@ -116,16 +119,26 @@
                             <view class="e-card">
                                 <view class="c-user">
                                     <view class="u-avatar">
-                                        <image src="https://s1.mi-img.com/mfsv2/avatar/s008/p01amyF87qXf/793p8cAufflQSe.jpg"></image>
+                                        <image
+                                            src="https://s1.mi-image.com/mfsv2/avatar/s008/p01amyF87qXf/793p8cAufflQSe.jpg"
+                                        />
                                     </view>
                                     <view class="u-name">
                                         <text>T*****rstruck</text>
                                     </view>
                                     <view class="u-star">
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
                                     </view>
                                 </view>
                                 <view class="c-text">
@@ -137,16 +150,26 @@
                             <view class="e-card">
                                 <view class="c-user">
                                     <view class="u-avatar">
-                                        <image src="https://s1.mi-img.com/mfsv2/avatar/s008/p01amyF87qXf/793p8cAufflQSe.jpg"></image>
+                                        <image
+                                            src="https://s1.mi-image.com/mfsv2/avatar/s008/p01amyF87qXf/793p8cAufflQSe.jpg"
+                                        />
                                     </view>
                                     <view class="u-name">
                                         <text>T*****rstruck</text>
                                     </view>
                                     <view class="u-star">
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
-                                        <image src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"></image>
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
+                                        <image
+                                            src="https://static.home.mi.com/youpin/static/m/res/images/evaluation_btn_level.a_sel_light.png"
+                                        />
                                     </view>
                                 </view>
                                 <view class="c-text">
@@ -173,10 +196,10 @@
             </view>
             <view class="d-content">
                 <view class="c-item">
-                    <image src="http://yanxuan.nosdn.127.net/64181a4409dc4c4a116f0e0b6c6d8fb4.jpg"></image>
+                    <image src="http://yanxuan.nosdn.127.net/64181a4409dc4c4a116f0e0b6c6d8fb4.jpg" />
                 </view>
                 <view class="c-item">
-                    <image src="http://yanxuan.nosdn.127.net/fc5f3104ec3f8493c636d8552e3ce9bf.jpg"></image>
+                    <image src="http://yanxuan.nosdn.127.net/fc5f3104ec3f8493c636d8552e3ce9bf.jpg" />
                 </view>
             </view>
         </view>
@@ -204,13 +227,110 @@
                 </view>
             </view>
         </view>
+        <popup ref="popupCounter">
+            <view class="g-count-panel">
+                <view class="p-goods">
+                    <view class="g-image">
+                        <image
+                            src="https://shop.io.mi-img.com/app/shop/img?id=shop_5f926ad08c9604219568908eafc90a8e.jpeg"
+                            alt
+                        />
+                    </view>
+                    <view class="g-info">
+                        <view class="i-name">
+                            <text>路易丝漫男式纯羊毛抗皱三防西装套装</text>
+                        </view>
+                        <view class="i-price">
+                            <text>￥199.00</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="p-section">
+                    <view class="s-title">
+                        <text>数量</text>
+                    </view>
+                    <view class="s-content">
+                        <counter></counter>
+                    </view>
+                </view>
+            </view>
+        </popup>
+        <popup ref="popupSpec">
+            <view class="g-spec-panel">
+                <view class="p-goods">
+                    <view class="g-img">
+                        <iamge
+                            src="https://shop.io.mi-img.com/app/shop/img?id=shop_5f926ad08c9604219568908eafc90a8e.jpeg"
+                            alt
+                        />
+                    </view>
+                    <view class="g-info">
+                        <view class="i-name">
+                            <text>路易丝漫男式纯羊毛抗皱三防西装套装</text>
+                        </view>
+                        <view class="i-price">
+                            <text>￥199.00</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="p-section">
+                    <view class="s-title">
+                        <text>容量</text>
+                    </view>
+                    <view class="s-content">
+                        <text>16G</text>
+                        <text>32G</text>
+                    </view>
+                </view>
+                <view class="p-section">
+                    <view class="s-title">
+                        <text>颜色</text>
+                    </view>
+                    <view class="s-content">
+                        <text>米兰白</text>
+                        <text>太空灰</text>
+                    </view>
+                </view>
+            </view>
+        </popup>
     </view>
 </template>
 
 <script>
-    export default {}
+import popup from '../../components/popup'
+import counter from '../../components/counter'
+import { Goods } from '../../model/goods'
+export default {
+    components: {
+        popup,
+        counter
+    },
+    data() {
+        return {
+            pageInfo: {
+                goods: new Goods()
+            }
+        }
+    },
+    methods: {
+        init() {
+            this.$api.page.info({ page: 'goods' }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    this.pageInfo.goods = new Goods(data.goods)
+                }
+            })
+        },
+        openPopup(s) {
+            this.$refs[s].open()
+        }
+    },
+    onLoad() {
+        this.init()
+    }
+}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>

@@ -22,14 +22,14 @@
                     </view>
                 </view>
                 <view class="g-content">
-                    <view class="c-item border-1px-top"
-                          :key="key"
-                          v-for="(item, key) in 2">
+                    <view class="c-item border-1px-top" :key="key" v-for="(item, key) in 2">
                         <view class="i-select">
                             <text class="iconfont">&#xe651;</text>
                         </view>
                         <view class="i-pic">
-                            <image src="http://yanxuan.nosdn.127.net/e216153c4c420a6bfaa754e6220981cd.png?imageView&quality=65&thumbnail=330x330"></image>
+                            <image
+                                src="http://yanxuan.nosdn.127.net/e216153c4c420a6bfaa754e6220981cd.png?imageView&quality=65&thumbnail=330x330"
+                            />
                         </view>
                         <view class="i-info">
                             <view class="info-name">
@@ -67,14 +67,14 @@
 </template>
 
 <script>
-    import counter from '../../components/counter'
-    export default {
-        components: {
-            xCounter:counter
-        }
+import counter from '../../components/counter'
+export default {
+    components: {
+        xCounter: counter
     }
+}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>
