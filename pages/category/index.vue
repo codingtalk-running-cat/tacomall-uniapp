@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-24 15:00:42
+ * @LastEditTime: 2020-10-26 14:58:19
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/category/index.vue
@@ -46,6 +46,7 @@
                             <view
                                 class="list-item"
                                 :key="key1"
+                                @tap="nav(`/pages/category-goods/index?id=${item1.id}&pid=${item.id}`)"
                                 v-for="(item1, key1) in item.children"
                             >
                                 <view class="item-pic">

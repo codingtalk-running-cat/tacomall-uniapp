@@ -28,6 +28,15 @@
 			}
 		},
 		{
+			"path": "pages/category-goods/index",
+			"style": {
+				"navigationBarTitleText": "分类商品",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
 			"path": "pages/cart/index",
 			"style": {
 				"navigationBarTitleText": "购物车",

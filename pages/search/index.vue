@@ -133,26 +133,7 @@
                     :key="key"
                     v-for="(item, key) in  pageInfo.searchResult"
                 >
-                    <view class="s-goods" @tap="navToGoodsDetail(item)">
-                        <view class="g-top">
-                            <view class="t-pic">
-                                <image
-                                    src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"
-                                />
-                            </view>
-                            <view class="t-desc">
-                                <text>{{item.name}}</text>
-                            </view>
-                        </view>
-                        <view class="g-bottom">
-                            <view class="b-name">
-                                <text>小米8</text>
-                            </view>
-                            <view class="b-price">
-                                <text>￥1999.00</text>
-                            </view>
-                        </view>
-                    </view>
+                    <goods-card :goods="item"></goods-card>
                 </view>
             </view>
         </view>
@@ -160,8 +141,12 @@
 </template>
 
 <script>
+import goodsCard from '../../components/goods-card'
 import { historySearch } from '../../utils/history-search'
 export default {
+    components: {
+        goodsCard
+    },
     data() {
         return {
             step: 1,
