@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-10-24 12:57:25
- * @LastEditTime: 2020-10-24 14:02:43
+ * @LastEditTime: 2020-10-26 18:55:02
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/api/mudules/goods.js
@@ -12,7 +12,7 @@
 import { request } from '../../libs/request'
 
 export default {
-    page: (params, data) => {
+    page: (params = {}, data = {}) => {
         return request.post('portal/goods/getGoodsPage', params, data)
     }
 }

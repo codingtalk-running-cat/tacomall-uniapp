@@ -313,8 +313,8 @@ export default {
         }
     },
     methods: {
-        init() {
-            this.$api.page.info({ page: 'goods' }).then(res => {
+        init(params) {
+            this.$api.page.info({ page: 'goods' }, { goodsId: Number(params.id) }).then(res => {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo.goods = new Goods(data.goods)
@@ -325,8 +325,8 @@ export default {
             this.$refs[s].open()
         }
     },
-    onLoad() {
-        this.init()
+    onLoad(params) {
+        this.init(params)
     }
 }
 </script>
