@@ -69,7 +69,7 @@
                     <text>规格：</text>
                 </view>
                 <view class="c-mid">
-                    <text>4G 米兰白</text>
+                    <text>{{activeSpec.attr | spec2str}}</text>
                 </view>
                 <view class="c-right">
                     <text class="iconfont">&#xe93d;</text>
@@ -222,7 +222,7 @@
                 <view class="r-item r-item-buy">
                     <text>立即购买</text>
                 </view>
-                <view class="r-item r-item-cart">
+                <view class="r-item r-item-cart" @tap="addCart">
                     <text>加入购物车</text>
                 </view>
             </view>
@@ -273,26 +273,22 @@
                         </view>
                     </view>
                 </view>
-                <view class="p-section">
+                <view class="p-section" :key="key" v-for="(item, key) in spec">
                     <view class="s-title">
-                        <text>容量</text>
+                        <text>{{item.title}}</text>
                     </view>
                     <view class="s-content">
-                        <text>16G</text>
-                        <text>32G</text>
-                    </view>
-                </view>
-                <view class="p-section">
-                    <view class="s-title">
-                        <text>颜色</text>
-                    </view>
-                    <view class="s-content">
-                        <text>米兰白</text>
-                        <text>太空灰</text>
+                        <text
+                            :class="{'active': activeSpec.ids.includes(item1.valueId)}"
+                            :key="key1"
+                            @tap="changeSpec(item1.valueId, item.list)"
+                            v-for="(item1, key1) in item.list"
+                        >{{item1.value}}</text>
                     </view>
                 </view>
             </view>
         </popup>
+        <van-notify id="van-notify" />
     </view>
 </template>
 
@@ -300,6 +296,9 @@
 import popup from '../../components/popup'
 import counter from '../../components/counter'
 import { Goods } from '../../model/goods'
+import { GoodsItem } from '../../model/goods/goodsItem'
+import Notify from '../../wxcomponents/vant/notify/notify'
+var _ = require('lodash')
 export default {
     components: {
         popup,
@@ -307,22 +306,124 @@ export default {
     },
     data() {
         return {
+            params: {},
             pageInfo: {
                 goods: new Goods()
+            },
+            activeGoodsItem: null
+        }
+    },
+    computed: {
+        spec() {
+            const { attrJson } = this.pageInfo.goods
+            let spec = []
+            for (let i = 0; i < attrJson.length; i++) {
+                for (let j = 0; j < attrJson[i]['attr'].length; j++) {
+                    const index = spec.map(k => k['title']).indexOf(attrJson[i]['attr'][j]['key'])
+                    const lItem = {
+                        value: attrJson[i]['attr'][j]['value'],
+                        valueId: attrJson[i]['attr'][j]['value_id'],
+                    }
+                    if (index > -1) {
+                        if (!spec[index]['list'].map(l => l['value']).includes(attrJson[i]['attr'][j]['value'])) {
+                            spec[index]['list'].push(lItem)
+                        }
+                        continue
+                    }
+                    spec.push({
+                        title: attrJson[i]['attr'][j]['key'],
+                        list: [lItem]
+                    })
+                }
             }
+            return spec
+        },
+        activeSpec() {
+            const { attrJson } = this.pageInfo.goods
+            let attr = {}
+            let ids = []
+            for (let i = 0; i < attrJson.length; i++) {
+                if (attrJson[i]['goods_item_id'] === this.activeGoodsItem.id) {
+                    attr = attrJson[i]
+                    ids = attrJson[i]['attr'].map(j => j['value_id'])
+                }
+            }
+            return {
+                attr,
+                ids
+            }
+        },
+    },
+    filters: {
+        spec2str(spec) {
+            if (!spec['attr']) {
+                return ''
+            }
+            return spec['attr'].map(i => i.value).join(' ')
         }
     },
     methods: {
         init(params) {
-            this.$api.page.info({ page: 'goods' }, { goodsId: Number(params.id) }).then(res => {
+            this.params = params
+            this.$api.page.info({ page: 'goods' }, { goodsId: Number(this.params.id) }).then(res => {
                 const { status, data } = res
                 if (status) {
+                    let agi = null
                     this.pageInfo.goods = new Goods(data.goods)
+                    for (let i = 0; i < data.goods.goodsItem.length; i++) {
+                        if (data.goods.goodsItem[i]['id'] === Number(this.params.sku)) {
+                            agi = data.goods.goodsItem[i]
+                            break
+                        }
+                    }
+                    this.activeGoodsItem = new GoodsItem(agi)
                 }
             })
         },
         openPopup(s) {
             this.$refs[s].open()
+        },
+        changeSpec(valueId, list) {
+            const { attrJson } = this.pageInfo.goods
+            let activeIds = _.cloneDeep(this.activeSpec['ids'])
+            let goodsItem = null
+            list.forEach(i => {
+                const index = activeIds.indexOf(i['valueId'])
+                if (index > -1) {
+                    activeIds.splice(index, 1)
+                }
+            })
+            activeIds.push(valueId)
+            for (let j = 0; j < attrJson.length; j++) {
+                if (!_.difference(attrJson[j]['attr'].map(k => k.value_id), activeIds).length) {
+                    for (let k = 0; k < this.pageInfo.goods.goodsItem.length; k++) {
+                        if (this.pageInfo.goods.goodsItem[k]['id'] === attrJson[j]['goods_item_id']) {
+                            goodsItem = this.pageInfo.goods.goodsItem[k]
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+            if (goodsItem) {
+                this.activeGoodsItem = goodsItem
+            }
+        },
+        addCart() {
+            const params = {
+                quantity: 1,
+                goodsItemId: this.activeGoodsItem.id
+            }
+            this.$api.user.addCart(params).then(res => {
+                const { status, data } = res
+                if (status) {
+                    Notify({
+                        message: '添加成功',
+                        color: '#fff',
+                        background: ' #845d32',
+                    })
+                }
+            })
         }
     },
     onLoad(params) {

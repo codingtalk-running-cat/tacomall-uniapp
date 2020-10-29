@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-26 19:11:27
+ * @LastEditTime: 2020-10-29 11:55:19
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/api/mudules/user.js
@@ -18,5 +18,8 @@ export default {
     },
     cart: (params = {}, data = {}) => {
         return request.post('portal/member/getCart', params, data)
+    },
+    addCart: (params = {}, data = {}) => {
+        return request.post('portal/member/addCart', params, data)
     }
 }

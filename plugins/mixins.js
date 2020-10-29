@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-24 15:07:04
+ * @LastEditTime: 2020-10-29 18:26:46
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/plugins/mixins.js
@@ -13,6 +13,11 @@ import Vue from 'vue'
 import { Goods } from '../model/goods'
 
 Vue.mixin({
+    filters: {
+        amount(n) {
+            return n.toFixed(2)
+        }
+    },
     methods: {
         red: (url) => {
             uni.redirectTo({

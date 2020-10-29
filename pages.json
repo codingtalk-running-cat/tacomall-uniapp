@@ -99,6 +99,9 @@
 				"navigationBarTitleText": "商品页",
 				"app-plus": {
 					"titleNView": false
+				},
+				"usingComponents": {
+					"van-notify": "/wxcomponents/vant/notify/index"
 				}
 			}
 		},

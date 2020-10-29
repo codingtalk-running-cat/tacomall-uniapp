@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-10-25 11:27:27
- * @LastEditTime: 2020-10-25 11:50:03
+ * @LastEditTime: 2020-10-29 10:39:21
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/components/popup/index.vue
@@ -10,8 +10,8 @@
  * @oops: Just do what I think it is right
 -->
 <template>
-    <view class="popup" :class="{'popup-visible': popupVisible}" @click.self="close()">
-        <view class="popup-bottom">
+    <view class="popup" :class="{'popup-visible': popupVisible}" @tap.self="close()">
+        <view class="popup-bottom" @tap.stop>
             <slot></slot>
         </view>
     </view>
