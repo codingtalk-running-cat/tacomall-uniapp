@@ -1,9 +1,10 @@
 <template>
     <view class="page cart">
         <view class="c-header">
-            <div class="h-left"></div>
-            <view class="h-right">
-                <text>编辑</text>
+            <view class="h-left"></view>
+            <view class="h-right" @click="isEdit = !isEdit">
+                <text v-if="isEdit">完成</text>
+                <text v-else>编辑</text>
             </view>
         </view>
         <view class="c-main">
@@ -51,28 +52,41 @@
                 </view>
             </view>
         </view>
-        <div class="c-footer">
-            <div class="f-info">
-                <div class="i-left" @tap="selectAll(activeCartIds.length === cart.length)">
-                    <text class="iconfont" v-if="activeCartIds.length === cart.length">&#xe640;</text>
-                    <text class="iconfont" v-else>&#xe651;</text>
-                    <text>全选</text>
-                </div>
-                <div class="i-right">
-                    <text class="r-text">合计</text>
-                    <text class="r-price">￥{{totalAmount | amount}}</text>
-                </div>
-            </div>
-            <div class="f-action" @tap="nav('/pages/checkout/index')">
-                <text>去结算(2)</text>
-            </div>
-        </div>
+        <view class="c-footer">
+            <view class="f-left" @tap="selectAll(activeCartIds.length === cart.length)">
+                <text class="iconfont" v-if="activeCartIds.length === cart.length">&#xe640;</text>
+                <text class="iconfont" v-else>&#xe651;</text>
+                <text>全选</text>
+            </view>
+            <view class="f-right" v-if="isEdit">
+                <view class="r-info">
+                    <text>已选：</text>
+                    <text>{{activeCart.length}}件</text>
+                </view>
+                <view class="r-action" @tap="doDelete">
+                    <text>删除</text>
+                </view>
+            </view>
+            <view class="f-right" v-else>
+                <view class="r-info">
+                    <text class="i-text">合计：</text>
+                    <text class="i-price">￥{{totalAmount | amount}}</text>
+                </view>
+                <view class="r-action" @tap="doCheck">
+                    <text>去结算({{activeCart.length}})</text>
+                </view>
+            </view>
+        </view>
+        <van-dialog id="van-dialog" confirm-button-color="#b4946d" />
+        <van-notify id="van-notify" />
     </view>
 </template>
 
 <script>
 import counter from '../../components/counter'
 import { goodsItem } from '../../model/goods/goodsItem'
+import Dialog from '../../wxcomponents/vant/dialog/dialog'
+import Notify from '../../wxcomponents/vant/notify/notify'
 var _ = require('lodash')
 export default {
     components: {
@@ -80,22 +94,29 @@ export default {
     },
     data() {
         return {
+            isEdit: false,
             pageInfo: {
                 favorite: []
             },
-            merchants: [],
+            cart: [],
             activeCart: []
         }
     },
     computed: {
-        cart() {
-            let cart = []
-            for (let i = 0; i < this.merchants.length; i++) {
-                for (let j = 0; j < this.merchants[i]['list'].length; j++) {
-                    cart.push(this.merchants[i]['list'][j])
+        merchants() {
+            let merchants = []
+            this.cart.forEach(i => {
+                const index = merchants.map(j => j['merchant']['id']).indexOf(i['merchant']['id'])
+                if (index > -1) {
+                    merchants[index]['list'].push(i)
+                    return
                 }
-            }
-            return cart
+                merchants.push({
+                    merchant: i['merchant'],
+                    list: [i]
+                })
+            })
+            return merchants
         },
         activeCartIds() {
             return this.activeCart.map(i => i.id)
@@ -118,11 +139,16 @@ export default {
             })
             this.getUserCart()
         },
+        resetUserCart() {
+            this.merchants = []
+            this.activeCart = []
+            this.getUserCart()
+        },
         getUserCart() {
             this.$api.user.cart().then(res => {
                 const { status, data } = res
                 if (status) {
-                    this.merchants = data
+                    this.cart = data
                 }
             })
         },
@@ -166,6 +192,37 @@ export default {
             this.cart.forEach(i => {
                 this.activeCart.push(i)
             })
+        },
+        doCheck() {
+            if (!this.activeCart.length) {
+                Notify({
+                    message: '请选择至少一件商品',
+                    color: '#fff',
+                    background: ' #845d32',
+                })
+                return
+            }
+            this.nav(`/pages/checkout/index?ids=${this.activeCartIds.join(',')}`)
+        },
+        doDelete() {
+            Dialog.confirm({
+                title: '删除提示',
+                message: `删除当前选中${this.activCart.length}件商品？`,
+            })
+                .then(() => {
+                    this.$api.user.deleteCart({ cartIds: this.activeCartIds.join(',') }).then(res => {
+                        const { status, data } = res
+                        if (status) {
+                            Notify({
+                                message: '删除成功',
+                                color: '#fff',
+                                background: ' #845d32',
+                            })
+                            this.resetUserCart()
+                        }
+                    })
+                })
+                .catch(() => { })
         }
     },
     onLoad() {

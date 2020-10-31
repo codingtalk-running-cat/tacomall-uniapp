@@ -42,6 +42,10 @@
 				"navigationBarTitleText": "购物车",
 				"app-plus": {
 					"titleNView": false
+				},
+				"usingComponents": {
+					"van-dialog": "/wxcomponents/vant/dialog/index",
+					"van-notify": "/wxcomponents/vant/notify/index"
 				}
 			}
 		},

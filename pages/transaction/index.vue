@@ -1,3 +1,14 @@
+<!--
+ * @Author: 码上talk|RC
+ * @Date: 2020-06-09 23:20:26
+ * @LastEditTime: 2020-10-31 11:03:04
+ * @LastEditors: 码上talk|RC
+ * @Description: 
+ * @FilePath: /tacomall-uniapp/pages/transaction/index.vue
+ * @微信:  13680065830
+ * @邮箱:  3189482282@qq.com
+ * @oops: Just do what I think it is right
+-->
 <template>
     <view class="page transaction">
         <view class="t-result">
@@ -10,7 +21,7 @@
                     <text>订单金额</text>
                 </view>
                 <view class="item-text">
-                    <text>78元</text>
+                    <text>￥{{pageInfo.order.totalAmount | amount}}元</text>
                 </view>
             </view>
             <view class="i-item">
@@ -59,9 +70,32 @@
 </template>
 
 <script>
-    export default {}
+export default {
+    data() {
+        return {
+            params: {},
+            pageInfo: {
+                order: {}
+            }
+        }
+    },
+    methods: {
+        init(params) {
+            this.params = params
+            this.$api.page.info({ page: 'transaction' }, { id: this.params['id'] }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    this.pageInfo['order'] = data['order']
+                }
+            })
+        },
+    },
+    onLoad(params) {
+        this.init(params)
+    }
+}
 </script>
 
 <style lang="less">
-    @import "./index";
+@import "./index";
 </style>

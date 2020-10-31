@@ -40,7 +40,7 @@
                 <text>商品详情</text>
             </view>
             <view class="g-content border-1px-top border-1px-bottom">
-                <view class="c-item">
+                <view class="c-item" :key="key" v-for="(item, key) in pageInfo.cart">
                     <view class="i-pic">
                         <image
                             src="https://static.home.mi.com/app/shop/img?id=shop_f4e9e198a07c9888cd3a4295a0f54b0b.jpeg&w=240&h=240"
@@ -48,12 +48,12 @@
                     </view>
                     <view class="i-info">
                         <view class="i-name">
-                            <text>米家机器人扫地边刷</text>
+                            <text>{{item.goodsItem.name}}</text>
                         </view>
                     </view>
                     <view class="i-price-num">
-                        <text class="single-price">￥39</text>
-                        <text class="num">x1</text>
+                        <text class="single-price">￥{{item.goodsItem.amount | amount}}</text>
+                        <text class="num">x{{item.quantity}}</text>
                     </view>
                 </view>
             </view>
@@ -89,9 +89,9 @@
         <view class="c-footer">
             <view class="f-info">
                 <text class="i-text">合计</text>
-                <text class="i-price">￥1236.00</text>
+                <text class="i-price">￥{{pageInfo.amount.totalAmount | amount}}</text>
             </view>
-            <view class="f-action" @tap="red('/pages/transaction/index')">
+            <view class="f-action" @tap="addOrder">
                 <text>去支付</text>
             </view>
         </view>
@@ -99,7 +99,50 @@
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+            params: null,
+            pageInfo: {
+                cart: [],
+                amount: {
+                    totalAmount: 0
+                }
+            }
+        }
+    },
+    methods: {
+        init(params) {
+            this.params = params
+            this.$api.page.info({ page: 'checkout' }, { ids: this.params['ids'] }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    this.pageInfo['cart'] = data['cart']
+                    this.pageInfo['amount'] = data['amount']
+                }
+            })
+        },
+        addOrder() {
+            this.$api.user.addOrder({ cartIds: this.params['ids'] }, {}).then(res => {
+                const { status, data } = res
+                if (status) {
+                    const { id } = data
+                    this.doPay().then(() => {
+                        this.red(`/pages/transaction/index?id=${id}`)
+                    })
+                }
+            })
+        },
+        doPay() {
+            return new Promise((resolve) => {
+                resolve()
+            })
+        }
+    },
+    onLoad(params) {
+        this.init(params)
+    }
+}
 </script>
 
 <style lang="less">
