@@ -207,7 +207,7 @@ export default {
         doDelete() {
             Dialog.confirm({
                 title: '删除提示',
-                message: `删除当前选中${this.activCart.length}件商品？`,
+                message: `删除当前选中${this.activeCart.length}件商品？`,
             })
                 .then(() => {
                     this.$api.user.deleteCart({ cartIds: this.activeCartIds.join(',') }).then(res => {
