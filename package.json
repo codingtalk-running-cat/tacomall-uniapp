@@ -1,0 +1,16 @@
+{
+  "name": "tacomall-uniapp",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r \t<a href=\"#\"><img src=\"http://img.codingtalk.cn/B44paPc1585145412609\"></a>\r </p>\r <p align=\"center\">[power by 码上talk©]</p>\r <p align=\"center\">\r \t<a target=\"_blank\" href=\"https://gitee.com/running-cat/tacomall-uniapp/blob/master/LICENSE\">\r \t\t<img src=\"https://img.shields.io/badge/License-Apache%202.0-blue.svg\" alt=\"LICENSE\"/>\r \t</a>\r     <a target=\"_blank\" href=\"https://uniapp.dcloud.io/\">\r \t\t<img src=\"https://img.shields.io/badge/uniapp-master-green\" alt=\"uniapp-master\"/>\r \t</a>\r      <a target=\"_blank\" href=\"https://www.dcloud.io/\">\r \t\t<img src=\"https://img.shields.io/badge/hbuilder-release-blue\" alt=\"hbuilder-release\"/>\r \t</a>\r </p>\r <p align=\"center\">\r 基于最新的uni-app开发的跨平台商城小程序（微信小程序，头条小程序，抖音小程序），合理的代码结构和规范的编码风格，能够让你很轻松的上手并转化成为自己的作品。\r 与之相支持的是，我们提供了一套完整的项目代码（前端小程序，后台接口，管理后台），它让你能够用最少的时间和开发成本，来建立一套属于自己的商城系统。\r </p>",
+  "main": "main.js",
+  "dependencies": {
+    "dayjs": "^1.9.4",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

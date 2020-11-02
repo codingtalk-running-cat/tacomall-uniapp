@@ -6,5 +6,4 @@
 # git_hook
 
 .git_hook
-package.json
 package-lock.json

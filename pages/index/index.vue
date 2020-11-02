@@ -68,13 +68,13 @@
                     </view>
                     <view class="l-time">
                         <view class="t-item">
-                            <text>02</text>
+                            <text>{{seckill.h}}</text>
                         </view>
                         <view class="t-item">
-                            <text>15</text>
+                            <text>{{seckill.m}}</text>
                         </view>
                         <view class="t-item">
-                            <text>45</text>
+                            <text>{{seckill.s}}</text>
                         </view>
                     </view>
                 </div>
@@ -84,14 +84,14 @@
                 </div>
             </view>
             <view class="f-content">
-                <view class="c-item" :key="key" v-for="(item, key) in 6">
+                <view class="c-item" :key="key" v-for="(item, key) in pageInfo.seckill.list">
                     <view class="i-image">
                         <image
                             src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
                         />
                     </view>
                     <view class="i-price">
-                        <text>￥3.2</text>
+                        <text>￥{{item.goodsItem.amount}}</text>
                         <text>￥5.0</text>
                     </view>
                 </view>
@@ -149,13 +149,32 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
+const addZero = (t) => {
+    return t < 10 ? '0' + t : t + '';
+}
+
 export default {
     data() {
         return {
             pageInfo: {
                 floor: [],
                 activity: [],
-                category: []
+                category: [],
+                seckill: {
+                    queryTime: '',
+                    endTime: '',
+                    startTime: '',
+                    list: []
+                }
+            },
+            seckill: {
+                timer: null,
+                d: 0,
+                h: 0,
+                m: 0,
+                s: 0
             }
         }
     },
@@ -177,8 +196,41 @@ export default {
                     this.pageInfo.floor = data.floor
                     this.pageInfo.activity = data.activity
                     this.pageInfo.category = data.category
+                    this.getSeckill()
                 }
             })
+        },
+        getSeckill() {
+            this.$api.seckill.info({}, {}).then(res => {
+                const { status, data } = res
+                if (status) {
+                    const { queryTime, startTime, endTime, list } = data
+                    this.pageInfo['seckill']['queryTime'] = queryTime
+                    this.pageInfo['seckill']['startTime'] = startTime
+                    this.pageInfo['seckill']['endTime'] = endTime
+                    this.pageInfo['seckill']['list'] = list
+                    this.seckillCountdown()
+                }
+            })
+        },
+        seckillCountdown() {
+            this.seckill.timer = setInterval(() => {
+                const leftTimestamp = dayjs(this.pageInfo['seckill']['endTime']).diff(dayjs())
+                if (!leftTimestamp && this.seckill['timer']) {
+                    clearInterval(this.seckill['timer'])
+                    this.seckill['timer'] = null
+                    this.getSeckill()
+                    return
+                }
+                const d = parseInt(leftTimestamp / (1000 * 24 * 60 * 60))
+                const h = parseInt(leftTimestamp / (1000 * 60 * 60) % 24)
+                const m = parseInt(leftTimestamp / (1000 * 60) % 60)
+                const s = parseInt(leftTimestamp / 1000 % 60)
+                this.seckill['d'] = addZero(d)
+                this.seckill['h'] = addZero(h)
+                this.seckill['m'] = addZero(m)
+                this.seckill['s'] = addZero(s)
+            }, 1000)
         }
     },
     onLoad() {
