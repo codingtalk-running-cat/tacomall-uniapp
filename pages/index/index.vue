@@ -84,7 +84,12 @@
                 </div>
             </view>
             <view class="f-content">
-                <view class="c-item" :key="key" v-for="(item, key) in pageInfo.seckill.list">
+                <view
+                    class="c-item"
+                    :key="key"
+                    @tap="nav(`/pages/goods/index?id=${item.goodsItem.goodsId}&sku=${item.goodsItem.id}&action=seckill`)"
+                    v-for="(item, key) in pageInfo.seckill.list"
+                >
                     <view class="i-image">
                         <image
                             src="http://yanxuan.nosdn.127.net/598a7792fdef09260c6c6fb0ca4fa5cc.png?imageView&thumbnail=216x216&quality=75"
@@ -98,7 +103,7 @@
             </view>
         </view>
         <template v-for="(item, key) in pageInfo.floor">
-            <view class="i-direct-supply" :key="key" v-if="item.id == 3">
+            <view class="i-direct-supply" :key="key" v-if="item.id == 5">
                 <view class="s-header">
                     <div class="h-left">
                         <text>{{item.name}}</text>

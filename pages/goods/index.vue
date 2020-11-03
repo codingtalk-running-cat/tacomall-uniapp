@@ -36,6 +36,37 @@
                 </swiper-item>
             </swiper>
         </view>
+        <view class="g-seckill" v-if="params.action === 'seckill'">
+            <view class="s-left">
+                <view class="l-amount">
+                    <view class="a-now">
+                        <text>￥</text>
+                        <text>1799</text>
+                    </view>
+                    <view class="a-before">
+                        <text>￥1999</text>
+                    </view>
+                </view>
+            </view>
+            <view class="s-right">
+                <view class="r-countdown">
+                    <view class="c-title">
+                        <text>距结束还剩</text>
+                    </view>
+                    <view class="c-time">
+                        <view class="t-item">
+                            <text>12</text>
+                        </view>
+                        <view class="t-item">
+                            <text>23</text>
+                        </view>
+                        <view class="t-item">
+                            <text>08</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
         <view class="g-info">
             <view class="i-name">
                 <text>{{pageInfo.goods.name}}</text>
@@ -218,7 +249,12 @@
                     <text class="i-text">购物车</text>
                 </view>
             </view>
-            <view class="f-right">
+            <view class="f-right" v-if="params.action === 'seckill'">
+                <view class="r-item r-item-seckill">
+                    <text>立即抢购</text>
+                </view>
+            </view>
+            <view class="f-right" v-else>
                 <view class="r-item r-item-buy">
                     <text>立即购买</text>
                 </view>

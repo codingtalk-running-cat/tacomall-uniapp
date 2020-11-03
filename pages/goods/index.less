@@ -81,6 +81,103 @@
 		}
 	}
 
+	.g-seckill {
+		display        : flex;
+		justify-content: space-between;
+		height         : 120rpx;
+		background     : url(../../static/image/goods-seckill-bg.png) center no-repeat;
+		background-size: 100% 100%;
+
+		.s-left {
+			display     : flex;
+			align-items : center;
+			padding-left: 150rpx;
+
+			.l-amount {
+				position: relative;
+
+				.a-now {
+					position : absolute;
+					top      : 50%;
+					left     : 50%;
+					transform: translate(-50%, calc(-50% - 15rpx));
+
+					text {
+						font-size  : 40rpx;
+						font-weight: 600;
+						color      : white;
+					}
+				}
+
+				.a-before {
+					position : absolute;
+					top      : 50%;
+					left     : 50%;
+					transform: translate(-50%, calc(-50% + 15rpx));
+
+					text {
+						font-size: 25rpx;
+						color    : white;
+					}
+
+					&:after {
+						position  : absolute;
+						content   : '';
+						top       : 50%;
+						left      : 50%;
+						transform : translate(-50%, calc(-50% + 10rpx));
+						width     : 100%;
+						height    : 3rpx;
+						background: white;
+					}
+				}
+			}
+		}
+
+		.s-right {
+			display      : flex;
+			align-items  : center;
+			padding-right: 30rpx;
+
+			.r-countdown {
+				display       : flex;
+				flex-direction: column;
+				align-items   : center;
+
+				.c-title {
+					text {
+						font-size: 30rpx;
+						color    : #f71471;
+					}
+				}
+
+				.c-time {
+					display    : flex;
+					align-items: center;
+
+					.t-item {
+						display        : flex;
+						align-items    : center;
+						justify-content: center;
+						flex-basis     : 36rpx;
+						height         : 36rpx;
+						border-radius  : 5rpx;
+						background     : #f71471;
+
+						text {
+							font-size: 24rpx;
+							color    : white;
+						}
+
+						&:not(:first-child) {
+							margin-left: 20rpx;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.g-info {
 		padding      : 28rpx;
 		margin-bottom: 10rpx;
@@ -442,20 +539,25 @@
 		}
 
 		.f-right {
-			display    : flex;
-			align-items: center;
-			flex-grow  : 0;
+			display        : flex;
+			align-items    : center;
+			justify-content: flex-end;
+			width          : 450rpx;
 
 			.r-item {
-				display      : inline-block;
-				width        : 222rpx;
-				height       : 68rpx;
-				text-align   : center;
-				line-height  : 68rpx;
-				border-radius: 34rpx;
+				display        : flex;
+				align-items    : center;
+				justify-content: center;
+				width          : 200rpx;
+				height         : 68rpx;
+				border-radius  : 34rpx;
 
 				text {
 					color: white;
+				}
+
+				&-seckill {
+					background-image: linear-gradient(135deg, #f2140c, #f2270c 70%, #f24d0c);
 				}
 
 				&-buy {
