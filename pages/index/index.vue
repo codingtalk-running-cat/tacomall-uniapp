@@ -87,7 +87,7 @@
                 <view
                     class="c-item"
                     :key="key"
-                    @tap="nav(`/pages/goods/index?id=${item.goodsItem.goodsId}&sku=${item.goodsItem.id}&action=seckill`)"
+                    @tap="nav(`/pages/goods/index?id=${item.goodsItem.goodsId}&sku=${item.goodsItem.id}&ac=seckill`)"
                     v-for="(item, key) in pageInfo.seckill.list"
                 >
                     <view class="i-image">

@@ -36,7 +36,7 @@
                 </swiper-item>
             </swiper>
         </view>
-        <view class="g-seckill" v-if="params.action === 'seckill'">
+        <view class="g-seckill" v-if="isSeckillModel">
             <view class="s-left">
                 <view class="l-amount">
                     <view class="a-now">
@@ -94,13 +94,14 @@
                 </view>
             </view>
         </view>
-        <view class="g-spec">
+        <view class="g-attr">
             <view class="g-cell" @tap="openPopup('popupSpec')">
                 <view class="c-left">
                     <text>规格：</text>
                 </view>
                 <view class="c-mid">
-                    <text>{{activeSpec.attr | spec2str}}</text>
+                    <text>{{activeAttr | spec2str}}</text>
+                    <text class="no-stock" v-if="!activeGoodsItem">该规格商品不存在</text>
                 </view>
                 <view class="c-right">
                     <text class="iconfont">&#xe93d;</text>
@@ -249,7 +250,7 @@
                     <text class="i-text">购物车</text>
                 </view>
             </view>
-            <view class="f-right" v-if="params.action === 'seckill'">
+            <view class="f-right" v-if="isSeckillModel">
                 <view class="r-item r-item-seckill">
                     <text>立即抢购</text>
                 </view>
@@ -292,7 +293,7 @@
             </view>
         </popup>
         <popup ref="popupSpec">
-            <view class="g-spec-panel">
+            <view class="g-attr-panel">
                 <view class="p-goods">
                     <view class="g-img">
                         <iamge
@@ -309,15 +310,15 @@
                         </view>
                     </view>
                 </view>
-                <view class="p-section" :key="key" v-for="(item, key) in spec">
+                <view class="p-section" :key="key" v-for="(item, key) in attr">
                     <view class="s-title">
                         <text>{{item.title}}</text>
                     </view>
                     <view class="s-content">
                         <text
-                            :class="{'active': activeSpec.ids.includes(item1.valueId)}"
+                            :class="{'active': activeAttr.map(i => i.valueId).includes(item1.valueId)}"
                             :key="key1"
-                            @tap="changeSpec(item1.valueId, item.list)"
+                            @tap="changeSpec(item1, item.list)"
                             v-for="(item1, key1) in item.list"
                         >{{item1.value}}</text>
                     </view>
@@ -346,56 +347,66 @@ export default {
             pageInfo: {
                 goods: new Goods()
             },
+            attr: [],
+            activeAttr: [],
             activeGoodsItem: null
         }
     },
     computed: {
-        spec() {
-            const { attrJson } = this.pageInfo.goods
-            let spec = []
-            for (let i = 0; i < attrJson.length; i++) {
-                for (let j = 0; j < attrJson[i]['attr'].length; j++) {
-                    const index = spec.map(k => k['title']).indexOf(attrJson[i]['attr'][j]['key'])
+        attrJson() {
+            let attrJson = []
+            this.pageInfo['goods']['goodsItem'].forEach(i => {
+                attrJson.push({
+                    attr: i['attrJson'],
+                    goodsItemId: i['id']
+                })
+            })
+            return attrJson
+        },
+        isSeckillModel() {
+            let isSeckillModel = false
+            if (this.activeGoodsItem && this.params['ac'] === 'seckill' && Number(this.params['sku']) === this.activeGoodsItem['id']) {
+                isSeckillModel = true
+            }
+            return isSeckillModel
+        }
+    },
+    watch: {
+        'attrJson': function (val) {
+            for (let i = 0; i < val.length; i++) {
+                if (val[i]['goodsItemId'] === this.activeGoodsItem.id) {
+                    this.activeAttr = val[i]['attr'].map(j => {
+                        return {
+                            value: j['value'], valueId: j['value_id']
+                        }
+                    })
+                }
+                for (let j = 0; j < val[i]['attr'].length; j++) {
+                    const index = this.attr.map(k => k['title']).indexOf(val[i]['attr'][j]['key'])
                     const lItem = {
-                        value: attrJson[i]['attr'][j]['value'],
-                        valueId: attrJson[i]['attr'][j]['value_id'],
+                        value: val[i]['attr'][j]['value'],
+                        valueId: val[i]['attr'][j]['value_id'],
                     }
                     if (index > -1) {
-                        if (!spec[index]['list'].map(l => l['value']).includes(attrJson[i]['attr'][j]['value'])) {
-                            spec[index]['list'].push(lItem)
+                        if (!this.attr[index]['list'].map(l => l['value']).includes(val[i]['attr'][j]['value'])) {
+                            this.attr[index]['list'].push(lItem)
                         }
                         continue
                     }
-                    spec.push({
-                        title: attrJson[i]['attr'][j]['key'],
+                    this.attr.push({
+                        title: val[i]['attr'][j]['key'],
                         list: [lItem]
                     })
                 }
             }
-            return spec
-        },
-        activeSpec() {
-            const { attrJson } = this.pageInfo.goods
-            let attr = {}
-            let ids = []
-            for (let i = 0; i < attrJson.length; i++) {
-                if (attrJson[i]['goods_item_id'] === this.activeGoodsItem.id) {
-                    attr = attrJson[i]
-                    ids = attrJson[i]['attr'].map(j => j['value_id'])
-                }
-            }
-            return {
-                attr,
-                ids
-            }
-        },
+        }
     },
     filters: {
-        spec2str(spec) {
-            if (!spec['attr']) {
+        spec2str(attr) {
+            if (!attr.length) {
                 return ''
             }
-            return spec['attr'].map(i => i.value).join(' ')
+            return attr.map(i => i.value).join(' ')
         }
     },
     methods: {
@@ -419,21 +430,19 @@ export default {
         openPopup(s) {
             this.$refs[s].open()
         },
-        changeSpec(valueId, list) {
-            const { attrJson } = this.pageInfo.goods
-            let activeIds = _.cloneDeep(this.activeSpec['ids'])
+        changeSpec(attr, list) {
             let goodsItem = null
             list.forEach(i => {
-                const index = activeIds.indexOf(i['valueId'])
+                const index = this.activeAttr.map(i => i['valueId']).indexOf(i['valueId'])
                 if (index > -1) {
-                    activeIds.splice(index, 1)
+                    this.activeAttr.splice(index, 1)
                 }
             })
-            activeIds.push(valueId)
-            for (let j = 0; j < attrJson.length; j++) {
-                if (!_.difference(attrJson[j]['attr'].map(k => k.value_id), activeIds).length) {
+            this.activeAttr.push(attr)
+            for (let j = 0; j < this.attrJson.length; j++) {
+                if (!_.difference(this.attrJson[j]['attr'].map(k => k.value_id), this.activeAttr.map(i => i['valueId'])).length) {
                     for (let k = 0; k < this.pageInfo.goods.goodsItem.length; k++) {
-                        if (this.pageInfo.goods.goodsItem[k]['id'] === attrJson[j]['goods_item_id']) {
+                        if (this.pageInfo.goods.goodsItem[k]['id'] === this.attrJson[j]['goodsItemId']) {
                             goodsItem = this.pageInfo.goods.goodsItem[k]
                             break
                         }
@@ -441,11 +450,17 @@ export default {
                     break
                 }
             }
-            if (goodsItem) {
-                this.activeGoodsItem = goodsItem
-            }
+            this.activeGoodsItem = goodsItem
         },
         addCart() {
+            if (!this.activeGoodsItem) {
+                Notify({
+                    message: '商品规格不存在',
+                    color: '#fff',
+                    background: ' #845d32',
+                })
+                return
+            }
             const params = {
                 quantity: 1,
                 goodsItemId: this.activeGoodsItem.id
