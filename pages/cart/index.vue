@@ -1,6 +1,6 @@
 <template>
     <view class="page cart">
-        <view class="c-header">
+        <view class="c-header" v-if="merchants.length">
             <view class="h-left"></view>
             <view class="h-right" @click="isEdit = !isEdit">
                 <text v-if="isEdit">完成</text>
@@ -8,51 +8,72 @@
             </view>
         </view>
         <view class="c-main">
-            <view class="m-group" :key="key" v-for="(item, key) in merchants">
-                <view class="g-header">
-                    <view class="h-left" @tap="selectMerchant(isMechantActive(item), item)">
-                        <text class="iconfont" v-if="isMechantActive(item)">&#xe640;</text>
-                        <text class="iconfont" v-else>&#xe651;</text>
-                        <text class="l-text">严选自营</text>
-                    </view>
-                    <view class="h-right">
-                        <text class="iconfont">&#xe619;</text>
-                        <text>满150.00免运费</text>
-                    </view>
-                </view>
-                <view class="g-content">
-                    <view
-                        class="c-item border-1px-top"
-                        :key="key1"
-                        v-for="(item1, key1) in item.list"
-                    >
-                        <view class="i-select" @tap="selectCart(item1)">
-                            <text class="iconfont" v-if="activeCartIds.includes(item1.id)">&#xe640;</text>
+            <template v-if="merchants.length">
+                <view class="m-group" :key="key" v-for="(item, key) in merchants">
+                    <view class="g-header">
+                        <view class="h-left" @tap="selectMerchant(isMechantActive(item), item)">
+                            <text class="iconfont" v-if="isMechantActive(item)">&#xe640;</text>
                             <text class="iconfont" v-else>&#xe651;</text>
+                            <text class="l-text">严选自营</text>
                         </view>
-                        <view class="i-pic">
-                            <image
-                                src="http://yanxuan.nosdn.127.net/e216153c4c420a6bfaa754e6220981cd.png?imageView&quality=65&thumbnail=330x330"
-                            />
+                        <view class="h-right">
+                            <text class="iconfont">&#xe619;</text>
+                            <text>满150.00免运费</text>
                         </view>
-                        <view class="i-info">
-                            <view class="info-name">
-                                <text>{{item1.goodsItem.name}}</text>
+                    </view>
+                    <view class="g-content">
+                        <view
+                            class="c-item border-1px-top"
+                            :key="key1"
+                            v-for="(item1, key1) in item.list"
+                        >
+                            <view class="i-select" @tap="selectCart(item1)">
+                                <text
+                                    class="iconfont"
+                                    v-if="activeCartIds.includes(item1.id)"
+                                >&#xe640;</text>
+                                <text class="iconfont" v-else>&#xe651;</text>
                             </view>
-                            <view class="i-price-num">
-                                <view class="price">
-                                    <text>￥{{item1.goodsItem.amount * item1.quantity | amount}}</text>
+                            <view class="i-pic">
+                                <image
+                                    src="http://yanxuan.nosdn.127.net/e216153c4c420a6bfaa754e6220981cd.png?imageView&quality=65&thumbnail=330x330"
+                                />
+                            </view>
+                            <view class="i-info">
+                                <view class="info-name">
+                                    <text>{{item1.goodsItem.name}}</text>
                                 </view>
-                                <view class="num">
-                                    <counter></counter>
+                                <view class="i-price-num">
+                                    <view class="price">
+                                        <text>￥{{item1.goodsItem.amount * item1.quantity | amount}}</text>
+                                    </view>
+                                    <view class="num">
+                                        <counter></counter>
+                                    </view>
                                 </view>
                             </view>
                         </view>
                     </view>
                 </view>
-            </view>
+            </template>
+            <template v-else>
+                <view class="m-blank">
+                    <view class="no-data">
+                        <image src="../../static/image/blank-cart.png" />
+                    </view>
+                    <view class="to-buy" v-if="isLogin">
+                        <text>购物车空空如也，去</text>
+                        <text class="btn" @tap="swi('/pages/index/index')">购买</text>
+                        <text>几件吧</text>
+                    </view>
+                    <view class="to-login" v-else>
+                        <text>您尚未登录</text>
+                        <text class="btn" @tap="nav('/pages/login/index')">去登陆</text>
+                    </view>
+                </view>
+            </template>
         </view>
-        <view class="c-footer">
+        <view class="c-footer" v-if="merchants.length">
             <view class="f-left" @tap="selectAll(activeCartIds.length === cart.length)">
                 <text class="iconfont" v-if="activeCartIds.length === cart.length">&#xe640;</text>
                 <text class="iconfont" v-else>&#xe651;</text>
@@ -87,6 +108,7 @@ import counter from '../../components/counter'
 import { goodsItem } from '../../model/goods/goodsItem'
 import Dialog from '../../wxcomponents/vant/dialog/dialog'
 import Notify from '../../wxcomponents/vant/notify/notify'
+import { mapState } from 'vuex'
 var _ = require('lodash')
 export default {
     components: {
@@ -103,6 +125,7 @@ export default {
         }
     },
     computed: {
+        ...mapState(['isLogin']),
         merchants() {
             let merchants = []
             this.cart.forEach(i => {

@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-11-03 09:00:58
+ * @LastEditTime: 2020-11-24 16:52:55
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/api/mudules/user.js
@@ -14,21 +14,21 @@ export default {
         return request.post('portal/member/wxMaLogin', params, data)
     },
     info: (params = {}, data = {}) => {
-        return request.post('portal/member/info', params, data)
+        return request.post('portal/member/info', params, data, { requireLogin: true })
     },
     cart: (params = {}, data = {}) => {
-        return request.post('portal/member/getCart', params, data)
+        return request.post('portal/member/getCart', params, data, { requireLogin: true })
     },
     addCart: (params = {}, data = {}) => {
-        return request.post('portal/member/addCart', params, data)
+        return request.post('portal/member/addCart', params, data, { requireLogin: true })
     },
     deleteCart: (params = {}, data = {}) => {
-        return request.post('portal/member/deleteCart', params, data)
+        return request.post('portal/member/deleteCart', params, data, { requireLogin: true })
     },
     addOrder: (params = {}, data = {}) => {
-        return request.post('portal/member/addOrder', params, data)
+        return request.post('portal/member/addOrder', params, data, { requireLogin: true })
     },
     getOrderPage: (params = {}, data = {}) => {
-        return request.post('portal/member/getOrderPage', params, data)
+        return request.post('portal/member/getOrderPage', params, data, { requireLogin: true })
     }
 }

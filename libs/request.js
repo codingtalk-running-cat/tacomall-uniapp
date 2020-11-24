@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-26 19:04:08
+ * @LastEditTime: 2020-11-24 16:51:38
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/libs/request.js
@@ -26,14 +26,28 @@ const buildStrParams = (params) => {
     return strParams
 }
 
-const send = (url, params, data, method = 'POST', showLoading = true, base_url = '') => {
-    uni.showLoading({
+const send = (url, params, data, config = null) => {
+    Object.assign
+    const defaultConfig = {
+        method: 'POST',
+        showLoading: true,
+        base_url: '',
+        requireLogin: false
+    }
+    const finalConfig = config ? Object.assign(defaultConfig, config) : defaultConfig
+    finalConfig.showLoading && uni.showLoading({
         title: '加载中'
     })
     return new Promise((resolve) => {
+        if (finalConfig.requireLogin && !token.get()) {
+            resolve({
+                status: false
+            })
+            return
+        }
         uni.request({
-            method: method,
-            url: (base_url ? base_url : appConfig.apiUrl) + url + buildStrParams(params),
+            method: finalConfig.method,
+            url: (finalConfig.base_url ? finalConfig.base_url : appConfig.apiUrl) + url + buildStrParams(params),
             data: data,
             header: (() => {
                 const tokeValue = token.get()
@@ -47,7 +61,7 @@ const send = (url, params, data, method = 'POST', showLoading = true, base_url =
             })(),
             success: (res) => {
                 const { code, data } = res.data
-                uni.hideLoading()
+                finalConfig.showLoading && uni.hideLoading()
                 if (code === 2001) {
                     token.clear()
                     uni.switchTab({
@@ -66,7 +80,7 @@ const send = (url, params, data, method = 'POST', showLoading = true, base_url =
 }
 
 export const request = {
-    post: (url, params, data) => {
-        return send(url, params, data, 'POST')
+    post: (url, params, data, config) => {
+        return send(url, params, data, config)
     }
 }

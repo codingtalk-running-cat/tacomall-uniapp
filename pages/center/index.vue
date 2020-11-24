@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-21 15:59:45
+ * @LastEditTime: 2020-11-24 16:21:31
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/center/index.vue
@@ -129,12 +129,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
     computed: {
-        ...mapState(["isLogin"]),
-        ...mapState("user", {
-            userInfo: "info"
+        ...mapState(['isLogin']),
+        ...mapState('user', {
+            userInfo: 'info'
         })
     }
 };
