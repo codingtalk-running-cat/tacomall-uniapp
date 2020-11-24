@@ -14,7 +14,7 @@
                         <view class="h-left" @tap="selectMerchant(isMechantActive(item), item)">
                             <text class="iconfont" v-if="isMechantActive(item)">&#xe640;</text>
                             <text class="iconfont" v-else>&#xe651;</text>
-                            <text class="l-text">严选自营</text>
+                            <text class="l-text">{{item.merchant.name}}</text>
                         </view>
                         <view class="h-right">
                             <text class="iconfont">&#xe619;</text>
