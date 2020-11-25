@@ -245,7 +245,7 @@
                     <text class="iconfont">&#xe617;</text>
                     <text class="i-text">收藏</text>
                 </view>
-                <view class="l-item">
+                <view class="l-item" @tap="swi('/pages/cart/index')">
                     <text class="iconfont">&#xe6af;</text>
                     <text class="i-text">购物车</text>
                 </view>
@@ -256,7 +256,7 @@
                 </view>
             </view>
             <view class="f-right" v-else>
-                <view class="r-item r-item-buy">
+                <view class="r-item r-item-buy" @tap="directBuy">
                     <text>立即购买</text>
                 </view>
                 <view class="r-item r-item-cart" @tap="addCart">
@@ -335,6 +335,8 @@ import counter from '../../components/counter'
 import { Goods } from '../../model/goods'
 import { GoodsItem } from '../../model/goods/goodsItem'
 import Notify from '../../wxcomponents/vant/notify/notify'
+import event from '../../event'
+import { eventTopic } from '../../event/topic'
 var _ = require('lodash')
 export default {
     components: {
@@ -349,6 +351,7 @@ export default {
             },
             attr: [],
             activeAttr: [],
+            quantity: 1,
             activeGoodsItem: null
         }
     },
@@ -452,6 +455,17 @@ export default {
             }
             this.activeGoodsItem = goodsItem
         },
+        directBuy() {
+            if (!this.activeGoodsItem) {
+                Notify({
+                    message: '商品规格不存在',
+                    color: '#fff',
+                    background: ' #845d32',
+                })
+                return
+            }
+            this.nav(`/pages/checkout/index?id=${this.activeGoodsItem['id']}&fromType=GOODS_ITEM&quantity=${this.quantity}`)
+        },
         addCart() {
             if (!this.activeGoodsItem) {
                 Notify({
@@ -468,6 +482,7 @@ export default {
             this.$api.user.addCart(params).then(res => {
                 const { status, data } = res
                 if (status) {
+                    event.trigger(eventTopic['CART_UPDATE'])
                     Notify({
                         message: '添加成功',
                         color: '#fff',

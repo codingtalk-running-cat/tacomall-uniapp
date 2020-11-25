@@ -109,6 +109,8 @@ import { goodsItem } from '../../model/goods/goodsItem'
 import Dialog from '../../wxcomponents/vant/dialog/dialog'
 import Notify from '../../wxcomponents/vant/notify/notify'
 import { mapState } from 'vuex'
+import event from '../../event'
+import { eventTopic } from '../../event/topic'
 var _ = require('lodash')
 export default {
     components: {
@@ -154,6 +156,9 @@ export default {
     },
     methods: {
         init(params) {
+            event.listener(eventTopic['CART_UPDATE'], () => {
+                this.resetUserCart()
+            })
             this.$api.page.info({ page: 'cart' }).then(res => {
                 const { status, data } = res
                 if (status) {
@@ -163,7 +168,7 @@ export default {
             this.getUserCart()
         },
         resetUserCart() {
-            this.merchants = []
+            this.cart = []
             this.activeCart = []
             this.getUserCart()
         },
@@ -225,7 +230,7 @@ export default {
                 })
                 return
             }
-            this.nav(`/pages/checkout/index?ids=${this.activeCartIds.join(',')}`)
+            this.nav(`/pages/checkout/index?ids=${this.activeCartIds.join(',')}&fromType=CART`)
         },
         doDelete() {
             Dialog.confirm({

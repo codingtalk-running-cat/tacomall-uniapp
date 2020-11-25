@@ -40,7 +40,7 @@
                 <text>商品详情</text>
             </view>
             <view class="g-content border-1px-top border-1px-bottom">
-                <view class="c-item" :key="key" v-for="(item, key) in pageInfo.cart">
+                <view class="c-item" :key="key" v-for="(item, key) in pageInfo.buys">
                     <view class="i-pic">
                         <image
                             src="https://static.home.mi.com/app/shop/img?id=shop_f4e9e198a07c9888cd3a4295a0f54b0b.jpeg&w=240&h=240"
@@ -114,10 +114,19 @@ export default {
     methods: {
         init(params) {
             this.params = params
-            this.$api.page.info({ page: 'checkout' }, { ids: this.params['ids'] }).then(res => {
+            let reqBody = {}
+            reqBody['fromType'] = this.params['fromType']
+            if (this.params['fromType'] === 'CART') {
+                reqBody['ids'] = this.params['ids']
+            }
+            if (this.params['fromType'] === 'GOODS_ITEM') {
+                reqBody['id'] = this.params['id']
+                reqBody['quantity'] = this.params['quantity']
+            }
+            this.$api.page.info({ page: 'checkout' }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
-                    this.pageInfo['cart'] = data['cart']
+                    this.pageInfo['buys'] = data['buys']
                     this.pageInfo['amount'] = data['amount']
                 }
             })
