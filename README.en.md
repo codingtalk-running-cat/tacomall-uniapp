@@ -42,7 +42,44 @@
 / /   ((___( ( ((____   ((___/ / // / /  / / ((___( ( // //     
 
 如果你发现项目不错，不要忘记给项目点个赞👍，你的支持是我们前进的动力 :)
+
 ```
+
+## 演示
+
+<table border="0">
+    <tr>
+        <td>微信小程序（微信扫一扫）</td>
+        <td>商家管理后台</td>
+    </tr>
+    <tr>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/cH6X2n51606387646573" height="200" width="200"/></td>
+        <td><a href="http://tacomall.codingtalk.cn">>>>点击进入商家管理后台</td>
+    </tr>
+</table>
+
+
+## 社区
+
+<table border="0">
+    <tr>
+        <td>关注“码上talk”微信公众号</td>
+        <td>tacomall QQ交流群</td>
+        <td>我的微信</td>
+    </tr>
+    <tr>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="200"/></td>
+        <td><img title="tacomall QQ交流群" src="https://img.codingtalk.cn/haPkJxc1585147447571" height="200" width="220"/></td>
+        <td><img title="码上talk|RC" src="https://img.codingtalk.cn/meJzskn1584540440273" height="200" width="220"/></td>
+    </tr>
+</table>
+
+<p>如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢</p>
+
+<p>如果您对此项目感兴趣，请点右上角 "Star" 支持一下谢谢</p>
+
+<p>如果需要帮助请留言或者加微信，晚上20：00后统一回复解决</p>
+
 ## 项目结构
 
 通过项目结构，你将清楚明白你即将入手的是一个怎么样的项目，你可能需要什么，如何快速的把它变成自己的产品。
@@ -69,11 +106,11 @@
         <td>商品详情</td>
     </tr>
     <tr>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="100"/></td>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="100"/></td>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="100"/></td>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="100"/></td>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="100"/></td>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/WHjZJJh1586355355657" height="340" width="170"/></td>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/MmNmCR21586355392776" height="340" width="170"/></td>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/25NbeMD1586355410426" height="340" width="170"/></td>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/nrnzKwr1586355431298" height="340" width="170"/></td>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/r8yRj251586355442801" height="340" width="170"/></td>
     </tr>
 </table>
 
@@ -180,24 +217,3 @@ manifest.json > mp-weixin > appid
 ## 版权声明
 
 项目在[Apache License 2.0](https://gitee.com/running-cat/tacomall-uniapp/blob/master/LICENSE)下自由使用。
-
-## 社区
-
-<table border="0">
-    <tr>
-        <td>关注“码上talk”微信公众号</td>
-        <td>tacomall QQ交流群</td>
-        <td>我的微信</td>
-    </tr>
-    <tr>
-        <td><img title="码上talk" src="https://img.codingtalk.cn/ncr3m3k1585147351285" height="200" width="200"/></td>
-        <td><img title="tacomall QQ交流群" src="https://img.codingtalk.cn/haPkJxc1585147447571" height="200" width="220"/></td>
-        <td><img title="码上talk|RC" src="https://img.codingtalk.cn/meJzskn1584540440273" height="200" width="220"/></td>
-    </tr>
-</table>
-
-<p>如果您觉得有帮助，请点右上角 "Star" 支持一下谢谢</p>
-
-<p>如果您对此项目感兴趣，请点右上角 "Star" 支持一下谢谢</p>
-
-<p>如果需要帮助请留言或者加微信，晚上20：00后统一回复解决</p>

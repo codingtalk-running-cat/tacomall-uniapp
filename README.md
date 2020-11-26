@@ -42,7 +42,22 @@
 / /   ((___( ( ((____   ((___/ / // / /  / / ((___( ( // //     
 
 如果你发现项目不错，不要忘记给项目点个赞👍，你的支持是我们前进的动力 :)
+
 ```
+
+## 演示
+
+<table border="0">
+    <tr>
+        <td>微信小程序（微信扫一扫）</td>
+        <td>商家管理后台</td>
+    </tr>
+    <tr>
+        <td><img title="码上talk" src="https://img.codingtalk.cn/cH6X2n51606387646573" height="200" width="200"/></td>
+        <td><a href="http://tacomall.codingtalk.cn">>>>点击进入商家管理后台</td>
+    </tr>
+</table>
+
 
 ## 社区
 
