@@ -188,6 +188,14 @@ git clone https://gitee.com/running-cat/tacomall-uniapp.git
 manifest.json > mp-weixin > appid
 ```
 
+5. 安装js依赖
+
+由于项目依赖了第三方库，运行像目前务必执行
+
+```
+npm install 
+```
+
 ## 测试
 
 看到这里，我们认为你已经正确配置启动项目了，接下来你将通过微信开发者工具看到实际效果。
@@ -209,6 +217,8 @@ manifest.json > mp-weixin > appid
 | vue              | 代码编写基础                      |
 | vuex        | 提供页面数据共享 |
 | uniapp    | 跨平台解决方案      |
+| loadsh    | js工具库      |
+| dayjs    | js时间库      |
 
 ## 版本控制
 
