@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-10-26 14:44:28
- * @LastEditTime: 2020-10-26 14:53:19
+ * @LastEditTime: 2020-12-09 19:09:07
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/components/goods-card/index.vue
@@ -72,6 +72,8 @@ export default {
         .b-name {
             padding-top: 15rpx;
             text {
+                display: inline-block;
+                width: 100%;
                 white-space: nowrap;
                 overflow-x: hidden;
                 text-overflow: ellipsis;

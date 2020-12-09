@@ -89,7 +89,7 @@
         <view class="c-footer">
             <view class="f-info">
                 <text class="i-text">合计</text>
-                <text class="i-price">￥{{pageInfo.amount.totalAmount | amount}}</text>
+                <text class="i-price">￥{{pageInfo.amount.total | amount}}</text>
             </view>
             <view class="f-action" @tap="addOrder">
                 <text>去支付</text>
@@ -122,6 +122,9 @@ export default {
             if (this.params['fromType'] === 'GOODS_ITEM') {
                 reqBody['id'] = this.params['id']
                 reqBody['quantity'] = this.params['quantity']
+            }
+                        if (this.params['fromType'] === 'SECKILL') {
+                reqBody['id'] = this.params['id']
             }
             this.$api.page.info({ page: 'checkout' }, reqBody).then(res => {
                 const { status, data } = res

@@ -44,7 +44,7 @@
                         <text>1799</text>
                     </view>
                     <view class="a-before">
-                        <text>￥1999</text>
+                        <text>￥{{activeGoodsItem.amount | amount}}</text>
                     </view>
                 </view>
             </view>
@@ -77,7 +77,7 @@
             <view class="i-price">
                 <view class="price-pay">
                     <text>￥</text>
-                    <text>1799</text>
+                    <text>{{activeGoodsItem.amount | amount}}</text>
                 </view>
             </view>
         </view>
@@ -101,7 +101,7 @@
                 </view>
                 <view class="c-mid">
                     <text>{{activeAttr | spec2str}}</text>
-                    <text class="no-stock" v-if="!activeGoodsItem">该规格商品不存在</text>
+                    <text class="no-stock" v-if="!activeGoodsItem.id">该规格商品不存在</text>
                 </view>
                 <view class="c-right">
                     <text class="iconfont">&#xe93d;</text>
@@ -251,7 +251,7 @@
                 </view>
             </view>
             <view class="f-right" v-if="isSeckillModel">
-                <view class="r-item r-item-seckill">
+                <view class="r-item r-item-seckill" @tap="seckillBuy">
                     <text>立即抢购</text>
                 </view>
             </view>
@@ -352,7 +352,7 @@ export default {
             attr: [],
             activeAttr: [],
             quantity: 1,
-            activeGoodsItem: null
+            activeGoodsItem: new GoodsItem()
         }
     },
     computed: {
@@ -453,31 +453,41 @@ export default {
                     break
                 }
             }
-            this.activeGoodsItem = goodsItem
+            this.activeGoodsItem = goodsItem || new GoodsItem()
         },
-        directBuy() {
-            if (!this.activeGoodsItem) {
+        verifyGoogdItemStock () {
+            let isVerifySuccess = false
+            if (!this.activeGoodsItem['id']) {
                 Notify({
                     message: '商品规格不存在',
                     color: '#fff',
                     background: ' #845d32',
                 })
+                return isVerifySuccess
+            }
+            // TODO Api to verify goodsItem stock
+            isVerifySuccess = true
+            return isVerifySuccess
+        },
+        directBuy() {
+            if (!this.verifyGoogdItemStock()) {
                 return
             }
             this.nav(`/pages/checkout/index?id=${this.activeGoodsItem['id']}&fromType=GOODS_ITEM&quantity=${this.quantity}`)
         },
+        seckillBuy () {
+                        if (!this.verifyGoogdItemStock()) {
+                return
+            }
+            this.nav(`/pages/checkout/index?id=${this.activeGoodsItem['id']}&fromType=SECKILL&quantity=1`)
+        },
         addCart() {
-            if (!this.activeGoodsItem) {
-                Notify({
-                    message: '商品规格不存在',
-                    color: '#fff',
-                    background: ' #845d32',
-                })
+            if (!this.verifyGoogdItemStock()) {
                 return
             }
             const params = {
                 quantity: 1,
-                goodsItemId: this.activeGoodsItem.id
+                goodsItemId: this.activeGoodsItem['id']
             }
             this.$api.user.addCart(params).then(res => {
                 const { status, data } = res

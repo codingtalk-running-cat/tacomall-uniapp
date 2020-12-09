@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-10-24 15:02:14
- * @LastEditTime: 2020-11-20 16:39:08
+ * @LastEditTime: 2020-12-09 19:22:55
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/model/goods/goodsItem.js
@@ -11,9 +11,10 @@
  */
 export class GoodsItem {
     constructor(goodsItem = {}) {
-        const { id, attrJson, name } = goodsItem
+        const { id, attrJson, name, amount } = goodsItem || {}
         this.id = id
         this.attrJson = attrJson ? JSON.parse(attrJson) : []
         this.name = name
+        this.amount = amount
     }
 }
