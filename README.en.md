@@ -26,7 +26,7 @@
 
 <p align="center">
 除此之外，你希望我们有一个完整的商城开源项目=====>
-<a href="https://gitee.com/running-cat/tacomall-enterprise" target="_blank">商家管理后台</a>
+<a href="https://gitee.com/running-cat/tacomall-merchant" target="_blank">商家管理后台</a>
 <a href="https://gitee.com/running-cat/tacomall-admin" target="_blank">平台管理后台</a>
 </p>
 
@@ -203,10 +203,6 @@ npm install
 ```
 运行 > 运行到小程序模拟器 > 微信小程序
 ```
-
-## 部署
-
-我们提供了docker容器化部署方案，详情请查看[部署](https://gitee.com/running-cat/tacomall-springcloud/blob/master/LICENSE)，但并不意味着你不得不选择docker部署，你仍然可以自由选择你喜欢的部署方式进行部署。
 
 ## 使用的框架
 

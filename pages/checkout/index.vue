@@ -123,7 +123,7 @@ export default {
                 reqBody['id'] = this.params['id']
                 reqBody['quantity'] = this.params['quantity']
             }
-                        if (this.params['fromType'] === 'SECKILL') {
+            if (this.params['fromType'] === 'SECKILL') {
                 reqBody['id'] = this.params['id']
             }
             this.$api.page.info({ page: 'checkout' }, reqBody).then(res => {
@@ -135,7 +135,14 @@ export default {
             })
         },
         addOrder() {
-            this.$api.user.addOrder({ cartIds: this.params['ids'] }, {}).then(res => {
+            let reqBody = {}
+            if (this.params['fromType'] === 'CART') {
+                reqBody['ids'] = this.params['ids']
+            }
+            if (this.params['fromType'] === 'GOODS_ITEM' || this.params['fromType'] === 'SECKILL') {
+                reqBody['id'] = this.params['id']
+            }
+            this.$api.user.addOrder({ fromType: this.params['fromType'] }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
                     const { id } = data

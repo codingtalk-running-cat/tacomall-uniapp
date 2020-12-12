@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-11-24 16:51:38
+ * @LastEditTime: 2020-12-11 14:39:53
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/libs/request.js
@@ -61,7 +61,6 @@ const send = (url, params, data, config = null) => {
             })(),
             success: (res) => {
                 const { code, data } = res.data
-                finalConfig.showLoading && uni.hideLoading()
                 if (code === 2001) {
                     token.clear()
                     uni.switchTab({
@@ -74,6 +73,9 @@ const send = (url, params, data, config = null) => {
                     })
                 }
                 resolve(res.data)
+            },
+            complete: () => {
+                finalConfig.showLoading && uni.hideLoading()
             }
         })
     })

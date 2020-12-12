@@ -455,7 +455,7 @@ export default {
             }
             this.activeGoodsItem = goodsItem || new GoodsItem()
         },
-        verifyGoogdItemStock () {
+        verifyGoogdItemStock() {
             let isVerifySuccess = false
             if (!this.activeGoodsItem['id']) {
                 Notify({
@@ -465,7 +465,6 @@ export default {
                 })
                 return isVerifySuccess
             }
-            // TODO Api to verify goodsItem stock
             isVerifySuccess = true
             return isVerifySuccess
         },
@@ -475,8 +474,8 @@ export default {
             }
             this.nav(`/pages/checkout/index?id=${this.activeGoodsItem['id']}&fromType=GOODS_ITEM&quantity=${this.quantity}`)
         },
-        seckillBuy () {
-                        if (!this.verifyGoogdItemStock()) {
+        seckillBuy() {
+            if (!this.verifyGoogdItemStock()) {
                 return
             }
             this.nav(`/pages/checkout/index?id=${this.activeGoodsItem['id']}&fromType=SECKILL&quantity=1`)
