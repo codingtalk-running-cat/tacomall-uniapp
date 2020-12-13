@@ -25,7 +25,7 @@
                     <text class="iconfont" style="color:#845d32;">&#xe640;</text>
                 </view>
             </view>
-            <view class="p-item border-1px-top">
+            <view class="p-item border-1px-top" v-if="app.platform !== 'MP-WEIXIN'">
                 <view class="i-left">
                     <text class="iconfont" style="color: #00aaef;">&#xe64b;</text>
                     <text class="l-name">支付宝支付</text>
@@ -99,6 +99,9 @@
 </template>
 
 <script>
+import event from '../../event'
+import { eventTopic } from '../../event/topic'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -110,6 +113,9 @@ export default {
                 }
             }
         }
+    },
+    computed: {
+        ...mapState(['app'])
     },
     methods: {
         init(params) {
@@ -141,11 +147,18 @@ export default {
             }
             if (this.params['fromType'] === 'GOODS_ITEM' || this.params['fromType'] === 'SECKILL') {
                 reqBody['id'] = this.params['id']
+                reqBody['quantity'] = this.params['quantity']
+            }
+            if (this.params['fromType'] === 'SECKILL') {
+                reqBody['id'] = this.params['id']
             }
             this.$api.user.addOrder({ fromType: this.params['fromType'] }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
                     const { id } = data
+                    if (this.params['fromType'] === 'CART') {
+                        event.trigger(eventTopic['CART_UPDATE'])
+                    }
                     this.doPay().then(() => {
                         this.red(`/pages/transaction/index?id=${id}`)
                     })

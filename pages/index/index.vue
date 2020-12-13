@@ -3,7 +3,7 @@
         <view class="i-header">
             <view class="h-top">
                 <view class="t-logo">
-                    <image src="../../static/image/navi_title_v4.png" />
+                    <image src="../../static/image/logo_v1.png" />
                 </view>
                 <view class="t-search" @tap="nav('/pages/search/index')">
                     <view class="s-left">
