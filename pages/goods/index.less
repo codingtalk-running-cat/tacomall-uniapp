@@ -47,17 +47,25 @@
 			top      : 50%;
 			right    : 27rpx;
 			transform: translateY(-50%);
+			display  : flex;
 
-			text {
-				display      : inline-block;
-				width        : 60rpx;
-				height       : 60rpx;
-				text-align   : center;
-				line-height  : 60rpx;
-				border-radius: 30px;
-				font-size    : 40rpx;
-				background   : RGBA(0, 0, 0, .1);
-				color        : white;
+			button {
+				display        : flex;
+				align-items    : center;
+				justify-content: center;
+				width          : 60rpx;
+				height         : 60rpx;
+				border-radius  : 30px;
+				background     : RGBA(0, 0, 0, .1);
+
+				text {
+					font-size: 40rpx;
+					color    : white;
+				}
+
+				&:after {
+					border: none;
+				}
 
 				&:first-child {
 					margin-right: 30rpx;

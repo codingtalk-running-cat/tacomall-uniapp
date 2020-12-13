@@ -14,8 +14,12 @@
                 </view>
             </view>
             <view class="h-right">
-                <text class="iconfont">&#xe62a;</text>
-                <text class="iconfont">&#xe616;</text>
+                <button @tap="swi('/pages/index/index')">
+                    <text class="iconfont">&#xe62a;</text>
+                </button>
+                <button open-type="share">
+                    <text class="iconfont">&#xe616;</text>
+                </button>
             </view>
         </view>
         <view class="g-banner">
@@ -339,6 +343,18 @@ import event from '../../event'
 import { eventTopic } from '../../event/topic'
 var _ = require('lodash')
 export default {
+    onShareAppMessage(res) {
+        return {
+            title: `${this.activeGoodsItem.name} - 塔可开源，致力于企业级新零售解决方案`,
+            path: `/pages/goods/index?id=${this.pageInfo.goods.id}&sku=${this.activeGoodsItem.id}`
+        }
+    },
+    onShareTimeline(res) {
+        return {
+            title: `${this.activeGoodsItem.name} - 塔可开源，致力于企业级新零售解决方案`,
+            path: `/pages/goods/index?id=${this.pageInfo.goods.id}&sku=${this.activeGoodsItem.id}`
+        }
+    },
     components: {
         popup,
         counter
