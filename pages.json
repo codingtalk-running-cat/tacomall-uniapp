@@ -126,6 +126,15 @@
 					"titleNView": false
 				}
 			}
+		},
+		{
+			"path": "pages/seckill/index",
+			"style": {
+				"navigationBarTitleText": "今日秒杀",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {

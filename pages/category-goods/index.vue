@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-10-25 12:40:26
- * @LastEditTime: 2020-10-26 14:55:16
+ * @LastEditTime: 2020-12-13 16:17:22
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/category-goods/index.vue
@@ -29,7 +29,7 @@
             <view
                 class="c-item border-1px-bottom"
                 :key="key"
-                v-for="(item, key) in  pageInfo.searchResult"
+                v-for="(item, key) in  pageInfo.result"
             >
                 <goods-card :goods="item"></goods-card>
             </view>
@@ -45,6 +45,7 @@ export default {
     },
     data() {
         return {
+            activeTabIndex: 0,
             pageInfo: {
                 tabs: [
                     {
@@ -54,10 +55,35 @@ export default {
                         name: '夏季防晒'
                     }
                 ],
-                searchResult: []
+                result: []
             },
-            activeTabIndex: 0
+            form: {
+                pageIndex: 1,
+                pageSize: 10
+            }
         }
+    },
+    methods: {
+        init() {
+            this.$api.goods.page({
+                pageIndex: this.form.pageIndex,
+                pageSize: this.form.pageSize
+            }, {
+                query: { keyword: '' },
+                order: {}
+            }).then(res => {
+                const { status, data } = res
+                if (status) {
+                    data.forEach(i => {
+                        this.pageInfo.result.push(i)
+                    })
+                    this.form.pageIndex++
+                }
+            })
+        }
+    },
+    onLoad() {
+        this.init()
     }
 }
 </script>

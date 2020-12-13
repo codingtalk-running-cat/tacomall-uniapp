@@ -78,7 +78,7 @@
                         </view>
                     </view>
                 </div>
-                <div class="h-right">
+                <div class="h-right" @tap="nav('/pages/seckill/index')">
                     <text>更多</text>
                     <text class="iconfont">&#xe93d;</text>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="h-left">
                         <text>{{item.name}}</text>
                     </div>
-                    <div class="h-right">
+                    <div class="h-right" @tap="nav('/pages/category-goods/index')">
                         <text>更多</text>
                         <text class="iconfont">&#xe93d;</text>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="h-left">
                         <text>{{item.name}}</text>
                     </div>
-                    <div class="h-right">
+                    <div class="h-right" @tap="nav('/pages/category-goods/index')">
                         <text>更多</text>
                         <text class="iconfont">&#xe93d;</text>
                     </div>

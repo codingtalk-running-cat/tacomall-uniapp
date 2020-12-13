@@ -127,29 +127,36 @@
                     </view>
                 </view>
             </view>
-            <view class="m-third" v-else>
-                <view
-                    class="t-item border-1px-bottom"
-                    :key="key"
-                    v-for="(item, key) in  pageInfo.searchResult"
-                >
-                    <goods-card :goods="item"></goods-card>
+            <data-indicator :status="dataIndicatorStatus.search" v-else>
+                <view class="m-third">
+                    <view
+                        class="t-item border-1px-bottom"
+                        :key="key"
+                        v-for="(item, key) in  pageInfo.searchResult"
+                    >
+                        <goods-card :goods="item"></goods-card>
+                    </view>
                 </view>
-            </view>
+            </data-indicator>
         </view>
     </view>
 </template>
 
 <script>
 import goodsCard from '../../components/goods-card'
+import dataIndicator from '../../components/data-indicator'
 import { historySearch } from '../../utils/history-search'
 export default {
     components: {
-        goodsCard
+        goodsCard,
+        dataIndicator
     },
     data() {
         return {
             step: 1,
+            dataIndicatorStatus: {
+                search: 2
+            },
             form: {
                 keyword: '',
                 searchResultPageIndex: 1,
@@ -197,6 +204,11 @@ export default {
             }).then(res => {
                 const { status, data } = res
                 if (status) {
+                    if (data.length === 0) {
+                        this.dataIndicatorStatus['search'] = 2
+                    } else {
+                        this.dataIndicatorStatus['search'] = 3
+                    }
                     data.forEach(i => {
                         this.pageInfo.searchResult.push(i)
                     })
