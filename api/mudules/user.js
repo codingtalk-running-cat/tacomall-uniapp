@@ -7,28 +7,43 @@
  * @FilePath: /tacomall-uniapp/api/mudules/user.js
  * @Just do what I think it is right
  */
-import { request } from '../../libs/request'
+import {
+	request
+} from '../../libs/request'
 
 export default {
-    wxMaLogin: (params = {}, data = {}) => {
-        return request.post('portal/member/wxMaLogin', params, data)
-    },
-    info: (params = {}, data = {}) => {
-        return request.post('portal/member/info', params, data, { requireLogin: true })
-    },
-    cart: (params = {}, data = {}) => {
-        return request.post('portal/member/getCart', params, data, { requireLogin: true })
-    },
-    addCart: (params = {}, data = {}) => {
-        return request.post('portal/member/addCart', params, data, { requireLogin: true })
-    },
-    deleteCart: (params = {}, data = {}) => {
-        return request.post('portal/member/deleteCart', params, data, { requireLogin: true })
-    },
-    addOrder: (params = {}, data = {}) => {
-        return request.post('portal/member/addOrder', params, data, { requireLogin: true })
-    },
-    getOrderPage: (params = {}, data = {}) => {
-        return request.post('portal/member/getOrderPage', params, data, { requireLogin: true })
-    }
+	wxMaLogin: (params = {}, data = {}) => {
+		return request.post('portal/member/wxMaLogin', params, data)
+	},
+	info: (params = {}, data = {}) => {
+		return request.post('portal/member/info', params, data, {
+			requireLogin: true
+		})
+	},
+	cart: (params = {}, data = {}) => {
+		return request.post('portal/member/getCart', params, data, {
+			requireLogin: true,
+			forceLogin: false
+		})
+	},
+	addCart: (params = {}, data = {}) => {
+		return request.post('portal/member/addCart', params, data, {
+			requireLogin: true
+		})
+	},
+	deleteCart: (params = {}, data = {}) => {
+		return request.post('portal/member/deleteCart', params, data, {
+			requireLogin: true
+		})
+	},
+	addOrder: (params = {}, data = {}) => {
+		return request.post('portal/member/addOrder', params, data, {
+			requireLogin: true
+		})
+	},
+	getOrderPage: (params = {}, data = {}) => {
+		return request.post('portal/member/getOrderPage', params, data, {
+			requireLogin: true
+		})
+	}
 }
