@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-26 14:58:19
+ * @LastEditTime: 2020-12-23 15:32:42
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/category/index.vue
@@ -83,7 +83,7 @@ export default {
     },
     methods: {
         init() {
-            this.$api.page.info({ page: 'goodsCategory' }).then(res => {
+            this.$api.page.info({ page: 'pageGoodsCategory' }).then(res => {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo.activity = data.goodsCategory

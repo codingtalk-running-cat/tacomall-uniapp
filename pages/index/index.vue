@@ -195,7 +195,7 @@ export default {
     },
     methods: {
         init() {
-            this.$api.page.info({ page: 'index' }).then(res => {
+            this.$api.page.info({ page: 'pageIndex' }).then(res => {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo.floor = data.floor

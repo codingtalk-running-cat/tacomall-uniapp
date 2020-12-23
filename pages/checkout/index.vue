@@ -102,6 +102,7 @@
 import event from '../../event'
 import { eventTopic } from '../../event/topic'
 import { mapState } from 'vuex'
+import { Order } from '../../model/order'
 export default {
     data() {
         return {
@@ -132,7 +133,7 @@ export default {
             if (this.params['fromType'] === 'SECKILL') {
                 reqBody['id'] = this.params['id']
             }
-            this.$api.page.info({ page: 'checkout' }, reqBody).then(res => {
+            this.$api.page.info({ page: 'pageCheckout' }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo['buys'] = data['buys']
@@ -141,6 +142,11 @@ export default {
             })
         },
         addOrder() {
+            const fromType2key = {
+                'CART': 'orderCart',
+                'GOODS_ITEM': 'orderGoodsItem',
+                'SECKILL': 'orderSeckill',
+            }
             let reqBody = {}
             if (this.params['fromType'] === 'CART') {
                 reqBody['ids'] = this.params['ids']
@@ -149,18 +155,15 @@ export default {
                 reqBody['id'] = this.params['id']
                 reqBody['quantity'] = this.params['quantity']
             }
-            if (this.params['fromType'] === 'SECKILL') {
-                reqBody['id'] = this.params['id']
-            }
-            this.$api.user.addOrder({ fromType: this.params['fromType'] }, reqBody).then(res => {
+            this.$api.user.addOrder({ fromType: fromType2key[this.params['fromType']] }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
-                    const { id } = data
+                    const { orders } = data.map(i => new Order(i))
                     if (this.params['fromType'] === 'CART') {
                         event.trigger(eventTopic['CART_UPDATE'])
                     }
                     this.doPay().then(() => {
-                        this.red(`/pages/transaction/index?id=${id}`)
+                        this.red(`/pages/transaction/index?ids=${orders.map(i => i['id']).join(',')}`)
                     })
                 }
             })

@@ -431,7 +431,7 @@ export default {
     methods: {
         init(params) {
             this.params = params
-            this.$api.page.info({ page: 'goods' }, { goodsId: Number(this.params.id) }).then(res => {
+            this.$api.page.info({ page: 'pageGoods' }, { goodsId: Number(this.params.id) }).then(res => {
                 const { status, data } = res
                 if (status) {
                     let agi = null

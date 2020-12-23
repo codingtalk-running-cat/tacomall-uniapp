@@ -159,7 +159,7 @@ export default {
             event.listener(eventTopic['CART_UPDATE'], () => {
                 this.resetUserCart()
             })
-            this.$api.page.info({ page: 'cart' }).then(res => {
+            this.$api.page.info({ page: 'pageCart' }).then(res => {
                 const { status, data } = res
                 if (status) {
                     this['pageInfo']['favorite'] = []

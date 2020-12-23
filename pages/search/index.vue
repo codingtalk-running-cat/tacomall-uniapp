@@ -174,7 +174,7 @@ export default {
     methods: {
         init() {
             this.pageInfo.history = historySearch.get()
-            this.$api.page.info({ page: 'search' }).then(res => {
+            this.$api.page.info({ page: 'pageSearch' }).then(res => {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo.hot = data.hot

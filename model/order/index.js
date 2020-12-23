@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-11-03 09:06:03
- * @LastEditTime: 2020-11-03 09:06:40
+ * @LastEditTime: 2020-12-23 17:57:11
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/model/order/index.js
@@ -11,7 +11,8 @@
  */
 export class Order {
     constructor(order = {}) {
-        const { id } = order
+        const { id, totalAmount } = order
         this.id = id
+        this.totalAmount = totalAmount
     }
 }

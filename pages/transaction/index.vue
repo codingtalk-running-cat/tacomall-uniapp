@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-10-31 11:03:04
+ * @LastEditTime: 2020-12-23 17:57:28
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/pages/transaction/index.vue
@@ -21,7 +21,7 @@
                     <text>订单金额</text>
                 </view>
                 <view class="item-text">
-                    <text>￥{{pageInfo.order.totalAmount | amount}}元</text>
+                    <text>￥{{totalAmount | amount}}元</text>
                 </view>
             </view>
             <view class="i-item">
@@ -70,22 +70,32 @@
 </template>
 
 <script>
+import { Order } from '../../model/order'
 export default {
     data() {
         return {
             params: {},
             pageInfo: {
-                order: {}
+                orders: []
             }
+        }
+    },
+    computed: {
+        totalAmount() {
+            let total = 0
+            for (let i = 0; i < this.pageInfo['orders'].length; i++) {
+                total = total + this.pageInfo['orders'][i]['totalAmount']
+            }
+            return total
         }
     },
     methods: {
         init(params) {
             this.params = params
-            this.$api.page.info({ page: 'transaction' }, { id: this.params['id'] }).then(res => {
+            this.$api.page.info({ page: 'pageTransaction' }, { ids: this.params['ids'] }).then(res => {
                 const { status, data } = res
                 if (status) {
-                    this.pageInfo['order'] = data['order']
+                    this.pageInfo['orders'] = data['orders'].map(i => new Order(i))
                 }
             })
         },
