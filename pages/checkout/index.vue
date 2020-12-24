@@ -158,7 +158,7 @@ export default {
             this.$api.user.addOrder({ fromType: fromType2key[this.params['fromType']] }, reqBody).then(res => {
                 const { status, data } = res
                 if (status) {
-                    const { orders } = data.map(i => new Order(i))
+                    const orders = data.map(i => new Order(i))
                     if (this.params['fromType'] === 'CART') {
                         event.trigger(eventTopic['CART_UPDATE'])
                     }
