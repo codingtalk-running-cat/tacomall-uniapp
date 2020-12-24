@@ -9,12 +9,19 @@
  * @邮箱:  3189482282@qq.com
  * @oops: Just do what I think it is right
  */
+
+/**
+ * 商品类，包含id，属性，名字，金额
+ * @class GoodsItem
+ * @constructor 
+ */
+
 export class GoodsItem {
-    constructor(goodsItem = {}) {
-        const { id, attrJson, name, amount } = goodsItem || {}
-        this.id = id
-        this.attrJson = attrJson ? JSON.parse(attrJson) : []
-        this.name = name
-        this.amount = amount
-    }
+  constructor(goodsItem = {}) {
+    const { id, attrJson, name, amount } = goodsItem || {}
+    this.id = id
+    this.attrJson = attrJson ? JSON.parse(attrJson) : []
+    this.name = name
+    this.amount = amount
+  }
 }

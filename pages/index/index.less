@@ -37,16 +37,19 @@
 				.s-left {
 					position   : absolute;
 					top        : 50%;
-					left       : 50%;
-					transform  : translate(-50%, -50%);
+					left       : 0;
+					transform  : translate(0, -50%);
 					display    : flex;
-					align-items: center;
-
-					.eosfont {
-						color: #909090;
+          align-items: center;
+          border-radius: 10rpx;
+					.iconfont {
+            font-size: 36rpx;
+            color: #909090;
+            margin: 0 20rpx;
 					}
 
 					.l-text {
+            flex: 1;
 						white-space: nowrap;
 						color      : #c8c8c8;
 					}

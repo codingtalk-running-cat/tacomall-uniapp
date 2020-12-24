@@ -184,6 +184,12 @@ export default {
         }
     },
     computed: {
+        /**
+          * 创建楼层链接数组，包含楼层id，名字
+          * @method floorLinks
+          * @param {参数类型} 参数名 参数说明
+          * @return {Object}} 返回楼层id，名字
+        */
         floorLinks() {
             return this.pageInfo.floor.map(i => {
                 return {
@@ -205,6 +211,10 @@ export default {
                 }
             })
         },
+        /**
+          * 通过api请求获取秒杀数据
+          * @method getSeckill
+        */
         getSeckill() {
             this.$api.seckill.info({}, {}).then(res => {
                 const { status, data } = res
@@ -218,6 +228,10 @@ export default {
                 }
             })
         },
+        /**
+          * 秒杀倒计时
+          * @method seckillCountdown
+        */
         seckillCountdown() {
             this.seckill.timer = setInterval(() => {
                 const leftTimestamp = dayjs(this.pageInfo['seckill']['endTime']).diff(dayjs())

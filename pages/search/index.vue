@@ -10,7 +10,7 @@
                         v-model="form.keyword"
                         @focus="inputFocusHandler"
                     />
-                    <text class="iconfont clear">&#xe61a;</text>
+                    <text class="iconfont clear" @click="clearSearch()">&#xe61a;</text>
                 </view>
                 <view class="t-right" @click="resetSearch();doSearch()">
                     <text>搜索</text>
@@ -62,7 +62,7 @@
                             <text>历史纪录</text>
                         </view>
                         <view class="h-right">
-                            <text class="iconfont">&#xe6d1;</text>
+                            <text class="iconfont" @click="clearHistory()">&#xe6d1;</text>
                         </view>
                     </view>
                     <view class="se-content">
@@ -153,7 +153,7 @@ export default {
     },
     data() {
         return {
-            step: 1,
+            step: 1, //搜索步骤
             dataIndicatorStatus: {
                 search: 2
             },
@@ -186,6 +186,11 @@ export default {
         inputFocusHandler() {
             this.step = 2
         },
+        /**
+          * 将选择的关键词赋值给form.keyword
+          * @method selectTag
+          * @param {String}} s 选择的关键词
+        */
         selectTag(s) {
             this.form.keyword = s
             this.doSearch()
@@ -194,6 +199,10 @@ export default {
             this.form.searchResultPageIndex = 1
             this.pageInfo.searchResult = []
         },
+        /**
+          * 发送api请求完成搜索
+          * @method doSearch
+        */
         doSearch() {
             this.$api.goods.page({
                 pageIndex: this.form.searchResultPageIndex,
@@ -214,8 +223,33 @@ export default {
                     })
                     this.step = 3
                     this.form.searchResultPageIndex++
+                    this.pageInfo.history = historySearch.add(this.form.keyword)
                 }
             })
+        },
+        /**
+          * 清空搜素框内容
+          * @method clearSearch
+        */
+        clearSearch(){
+          this.form.keyword = ''
+          this.step = 1
+          this.pageInfo.history = historySearch.get()
+        },
+        /**
+          * 清空历史记录
+          * @method clearHistory
+        */
+        clearHistory(){
+          const _that = this
+          uni.showModal({  
+            title:"确认删除全部历史记录?",
+            success:function(res){
+              if(res.confirm){
+                _that.pageInfo.history = historySearch.clear()
+              }
+            }
+          });
         }
     },
     onLoad() {

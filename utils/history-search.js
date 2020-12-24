@@ -25,6 +25,7 @@ export const historySearch = {
         arrHis.push(s)
         uni.setStorageSync(appConfig.historySearchKey, JSON.stringify(arrHis))
     },
+    // 从本地缓存中同步获取历史搜索记录
     get: () => {
         return uni.getStorageSync(appConfig.historySearchKey) ? JSON.parse(uni.getStorageSync(appConfig.historySearchKey)) : []
     },
