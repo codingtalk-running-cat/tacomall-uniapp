@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-11-24 16:52:55
+ * @LastEditTime: 2020-12-25 19:10:37
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/api/mudules/user.js
@@ -21,7 +21,7 @@ export default {
 		})
 	},
 	cart: (params = {}, data = {}) => {
-		return request.post('portal/member/getCart', params, data, {
+		return request.post('portal/member/getCarts', params, data, {
 			requireLogin: true,
 			forceLogin: false
 		})
