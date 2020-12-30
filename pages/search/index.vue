@@ -91,9 +91,7 @@
                                 v-for="(item, key) in pageInfo.recommend"
                             >
                                 <view class="i-pic">
-                                    <image
-                                        src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"
-                                    />
+                                    <img-loader :src="item.cover" />
                                 </view>
                                 <view class="i-info">
                                     <text class="i-name">{{item.name}}</text>
@@ -146,10 +144,13 @@
 import goodsCard from '../../components/goods-card'
 import dataIndicator from '../../components/data-indicator'
 import { historySearch } from '../../utils/history-search'
+import imgLoader from '../../components/img-loader'
+import { Goods } from '../../model/goods'
 export default {
     components: {
         goodsCard,
-        dataIndicator
+        dataIndicator,
+        imgLoader
     },
     data() {
         return {
@@ -178,7 +179,9 @@ export default {
                 const { status, data } = res
                 if (status) {
                     this.pageInfo.hot = data.hot
-                    this.pageInfo.recommend = data.recommend
+                    this.pageInfo.recommend = data.recommend.map(i => {
+                        return new Goods(i)
+                    })
                     this.pageInfo.most = data.most
                 }
             })
@@ -231,25 +234,25 @@ export default {
           * 清空搜素框内容
           * @method clearSearch
         */
-        clearSearch(){
-          this.form.keyword = ''
-          this.step = 1
-          this.pageInfo.history = historySearch.get()
+        clearSearch() {
+            this.form.keyword = ''
+            this.step = 1
+            this.pageInfo.history = historySearch.get()
         },
         /**
           * 清空历史记录
           * @method clearHistory
         */
-        clearHistory(){
-          const _that = this
-          uni.showModal({  
-            title:"确认删除全部历史记录?",
-            success:function(res){
-              if(res.confirm){
-                _that.pageInfo.history = historySearch.clear()
-              }
-            }
-          });
+        clearHistory() {
+            const _that = this
+            uni.showModal({
+                title: "确认删除全部历史记录?",
+                success: function (res) {
+                    if (res.confirm) {
+                        _that.pageInfo.history = historySearch.clear()
+                    }
+                }
+            });
         }
     },
     onLoad() {

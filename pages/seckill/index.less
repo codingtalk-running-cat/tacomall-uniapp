@@ -1,149 +1,176 @@
 @import "../../common/less/theme";
 
-.seckill{
-  .s-content{
-    position: relative;
-    width: 100%;
+.seckill {
+  .s-content {
+    position        : relative;
+    width           : 100%;
     background-color: rgb(244, 244, 244);
-    .c-backgrund{
+
+    .c-backgrund {
       position: absolute;
-      width: 100%;
-      height: 1000rpx;
-      image{
-        width: 100%;
+      width   : 100%;
+      height  : 1000rpx;
+
+      image {
+        width : 100%;
         height: 100%;
       }
     }
-    .c-wrapper{
+
+    .c-wrapper {
       position: absolute;
-      width: 100%;
-      .w-half{
-        width: 100%;
+      width   : 100%;
+
+      .w-half {
+        width        : 100%;
         margin-bottom: 27.5rpx;
-        .h-header{
-          display: flex;
+
+        .h-header {
+          display    : flex;
           align-items: center;
-          padding: 42rpx 0 24rpx 24rpx;
-          image{
-            width: 128rpx;
-            height: 40rpx;
+          padding    : 42rpx 0 24rpx 24rpx;
+
+          image {
+            width       : 128rpx;
+            height      : 40rpx;
             margin-right: 10rpx;
           }
-          span{
-            color: #fff;
+
+          span {
+            color    : #fff;
             font-size: 26rpx;
           }
         }
-        .h-goods{
+
+        .h-goods {
           margin-left: 24rpx;
-          width: 100%;
-          .g-scrollview{
+          width      : 100%;
+
+          .g-scrollview {
             width: 100%;
-            .s-wrapper{
+
+            .s-wrapper {
               display: flex;
-              .w-item{
-                width: 258rpx;
-                height: 396rpx;
-                background: #fff;
-                position: relative;
-                margin-right: 12rpx;
+
+              .w-item {
+                width        : 258rpx;
+                height       : 396rpx;
+                background   : #fff;
+                position     : relative;
+                margin-right : 12rpx;
                 border-radius: 18rpx;
-                .i-top{
+
+                .i-top {
                   position: relative;
-                  .t-time{
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 172rpx;
-                    height: 34rpx;
-                    background-color: rgb(3, 158, 130);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+
+                  .t-time {
+                    position                  : absolute;
+                    top                       : 0;
+                    left                      : 0;
+                    width                     : 172rpx;
+                    height                    : 34rpx;
+                    background-color          : rgb(3, 158, 130);
+                    display                   : flex;
+                    align-items               : center;
+                    justify-content           : center;
                     border-bottom-right-radius: 12rpx;
-                    text{
+
+                    text {
                       color: #fff;
                     }
                   }
-                  .t-image{
-                    image{
-                      width: 258rpx;
+
+                  .t-image {
+                    image {
+                      width : 258rpx;
                       height: 258rpx;
                     }
                   }
-                  .t-status{
-                    position: absolute;
-                    left: 0;
-                    bottom: 0;
-                    width: 258rpx;
-                    height: 32rpx;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+
+                  .t-status {
+                    position        : absolute;
+                    left            : 0;
+                    bottom          : 0;
+                    width           : 258rpx;
+                    height          : 32rpx;
+                    display         : flex;
+                    align-items     : center;
+                    justify-content : center;
                     background-color: rgb(200, 255, 245);
                   }
                 }
-                .i-bottom{
-                  position: relative;
-                  display: flex;
+
+                .i-bottom {
+                  position      : relative;
+                  display       : flex;
                   flex-direction: column;
-                  .b-title{
-                    width: 234rpx;
-                    height: 36rpx;
-                    margin-top: 12rpx;
+
+                  .b-title {
+                    width      : 234rpx;
+                    height     : 36rpx;
+                    margin-top : 12rpx;
                     margin-left: 12rpx;
-                    display: flex;
+                    display    : flex;
                     align-items: center;
-                    text{
-                      overflow: hidden;
-                      white-space: nowrap;
+
+                    text {
+                      overflow     : hidden;
+                      white-space  : nowrap;
                       text-overflow: ellipsis;
-                      font-size: 26rpx;
+                      font-size    : 26rpx;
                     }
                   }
-                  .b-info{
-                    position: relative;
-                    width: 234rpx;
-                    height: 54rpx;
-                    margin-top: 16rpx;
+
+                  .b-info {
+                    position   : relative;
+                    width      : 234rpx;
+                    height     : 54rpx;
+                    margin-top : 16rpx;
                     margin-left: 12rpx;
-                    image{
-                      width: 234rpx;
+
+                    image {
+                      width : 234rpx;
                       height: 54rpx;
                     }
-                    .b-left{
-                      position: absolute;
-                      left: 17rpx;
-                      top: 0;
-                      display: flex;
+
+                    .b-left {
+                      position      : absolute;
+                      left          : 17rpx;
+                      top           : 0;
+                      display       : flex;
                       flex-direction: column;
-                      .l-discount{
-                        color:  rgb(242, 29, 29);
+
+                      .l-discount {
+                        color      : rgb(242, 29, 29);
                         line-height: 26rpx;
-                        font-size: 26rpx;
+                        font-size  : 26rpx;
                       }
-                      .l-original{
+
+                      .l-original {
                         text-decoration: line-through;
-                        color: rgb(119, 119, 119);
-                        line-height: 26rpx;
-                        font-size: 26rpx;
+                        color          : rgb(119, 119, 119);
+                        line-height    : 26rpx;
+                        font-size      : 26rpx;
                       }
                     }
-                    .b-right{
+
+                    .b-right {
                       position: absolute;
-                      right: 14rpx;
-                      top: 0;
-                      .r-status{
-                        display: flex;
+                      right   : 14rpx;
+                      top     : 0;
+
+                      .r-status {
+                        display       : flex;
                         flex-direction: column;
-                        text{
-                          width: 68rpx;
-                          white-space: nowrap;
-                          overflow: hidden;
+
+                        text {
+                          width        : 68rpx;
+                          white-space  : nowrap;
+                          overflow     : hidden;
                           text-overflow: ellipsis;
-                          line-height: 26rpx;
-                          font-size: 22rpx;
-                          color: rgb(255, 255, 255);
+                          line-height  : 26rpx;
+                          font-size    : 22rpx;
+                          color        : rgb(255, 255, 255);
                         }
                       }
                     }
@@ -154,220 +181,258 @@
           }
         }
       }
-      .w-timeInterval{
+
+      .w-timeInterval {
         display: flex;
-        .t-left{
-          display: flex;
+
+        .t-left {
+          display     : flex;
           padding-left: 24rpx;
-          width: 257rpx;
-          .l-logo{
-            width: 72rpx;
-            height: 80rpx;
+          width       : 257rpx;
+
+          .l-logo {
+            width      : 72rpx;
+            height     : 80rpx;
             padding-top: 12rpx;
-            text-align: center;
-            text{
-              font-size: 36rpx;
+            text-align : center;
+
+            text {
+              font-size  : 36rpx;
               line-height: 36rpx;
-              color: #fff;
+              color      : #fff;
             }
           }
-          .l-buying{
-            margin-left: 37rpx;
-            display: flex;
+
+          .l-buying {
+            margin-left   : 37rpx;
+            display       : flex;
             flex-direction: column;
-            .b-time{
-              height: 56rpx;
-              text-align: center;
-              font-size: 36rpx;
-              color: #fff;
+
+            .b-time {
+              height     : 56rpx;
+              text-align : center;
+              font-size  : 36rpx;
+              color      : #fff;
               line-height: 62rpx;
               font-weight: bold;
             }
-            .b-text{
-              height: 34rpx;
-              line-height: 34rpx;
-              padding: 0 16rpx;
-              font-size: 22rpx;
-              text-align: center;
-              border-radius: 17rpx;
+
+            .b-text {
+              height          : 34rpx;
+              line-height     : 34rpx;
+              padding         : 0 16rpx;
+              font-size       : 22rpx;
+              text-align      : center;
+              border-radius   : 17rpx;
               background-color: #fff;
-              color: rgb(255, 48, 72);
+              color           : rgb(255, 48, 72);
             }
           }
         }
-        .t-right{
+
+        .t-right {
           width: 493rpx;
-          .r-wrapper{
-            width: 645.5rpx;
+
+          .r-wrapper {
+            width  : 645.5rpx;
             display: flex;
-            .w-item{
-              display: flex;
+
+            .w-item {
+              display       : flex;
               flex-direction: column;
-              width: 124rpx;
-              height: 94rpx;
-              text-align: center;
-              .i-time{
-                font-size: 36rpx;
-                height: 56rpx;
+              width         : 124rpx;
+              height        : 94rpx;
+              text-align    : center;
+
+              .i-time {
+                font-size  : 36rpx;
+                height     : 56rpx;
                 line-height: 62rpx;
-                color: rgba(255, 255, 255, .6);
+                color      : rgba(255, 255, 255, .6);
               }
-              .i-text{
-                height: 34rpx;
+
+              .i-text {
+                height     : 34rpx;
                 line-height: 34rpx;
-                font-size: 22rpx;
-                color: rgba(255, 255, 255, .6);
+                font-size  : 22rpx;
+                color      : rgba(255, 255, 255, .6);
               }
             }
           }
         }
       }
-      .w-hotgrabList{
+
+      .w-hotgrabList {
         width: 100%;
-        .h-wrapper{
+
+        .h-wrapper {
           width: 100%;
-          .w-image{
-            width: 100%;
-            margin-top: 18rpx;
+
+          .w-image {
+            width        : 100%;
+            margin-top   : 18rpx;
             margin-bottom: 24rpx;
-            image{
-              width: 100%;
+
+            image {
+              width : 100%;
               height: 146rpx;
             }
           }
-          .w-item{
-            position: relative;
-            width: 702rpx;
-            height: 264rpx;
-            margin-left: 24rpx;
-            margin-right: 18rpx;
+
+          .w-item {
+            position        : relative;
+            width           : 702rpx;
+            height          : 264rpx;
+            margin-left     : 24rpx;
+            margin-right    : 18rpx;
             background-color: #fff;
-            border-radius: 20rpx;
-            display: flex;
-            .i-left{
-              position: relative;
-              padding: 0 18rpx;
-              display: flex;
+            border-radius   : 20rpx;
+            display         : flex;
+
+            .i-left {
+              position   : relative;
+              padding    : 0 18rpx;
+              display    : flex;
               align-items: center;
-              .l-image{
-                width: 228rpx;
-                height: 228rpx;
+
+              .l-image {
+                width        : 228rpx;
+                height       : 228rpx;
                 border-radius: 10rpx;
               }
-              .l-label{
+
+              .l-label {
                 position: absolute;
-                top: 18rpx;
-                left: 18rpx;
-                width: 80rpx;
-                height: 40rpx;
-                image{
-                  width: 80rpx;
+                top     : 18rpx;
+                left    : 18rpx;
+                width   : 80rpx;
+                height  : 40rpx;
+
+                image {
+                  width : 80rpx;
                   height: 40rpx;
                 }
               }
             }
-            .i-right{
-              position: relative;
-              width: 430rpx;
+
+            .i-right {
+              position   : relative;
+              width      : 430rpx;
               padding-top: 24rpx;
-              .r-title{
-                line-height: 35rpx;
-                white-space: nowrap;
-                overflow: hidden;
+
+              .r-title {
+                line-height  : 35rpx;
+                white-space  : nowrap;
+                overflow     : hidden;
                 text-overflow: ellipsis;
-                text{
+
+                text {
                   font-size: 30rpx;
-                  color: #000;
+                  color    : #000;
                 }
               }
-              .r-desc{
-                white-space: nowrap;
-                overflow: hidden;
+
+              .r-desc {
+                white-space  : nowrap;
+                overflow     : hidden;
                 text-overflow: ellipsis;
-                height: 35rpx;
-                line-height: 35rpx;
-                margin-top: 6rpx;
-                text{
+                height       : 35rpx;
+                line-height  : 35rpx;
+                margin-top   : 6rpx;
+
+                text {
                   font-size: 26rpx;
-                  color: rgb(119, 119, 119);
+                  color    : rgb(119, 119, 119);
                 }
               }
-              .r-progress{
-                position: relative;
-                margin-top: 14rpx;
-                width: 180rpx;
-                height: 28rpx;
-                border-radius: 16rpx;
+
+              .r-progress {
+                position        : relative;
+                margin-top      : 14rpx;
+                width           : 180rpx;
+                height          : 28rpx;
+                border-radius   : 16rpx;
                 background-color: rgb(255, 214, 199);
-                display: flex;
-                align-items: center;
-                text{
-                  font-size: 22rpx;
+                display         : flex;
+                align-items     : center;
+
+                text {
+                  font-size  : 22rpx;
                   margin-left: 10rpx;
-                  color: rgb(191, 17, 17);
+                  color      : rgb(191, 17, 17);
                 }
               }
-              .r-shopping{
-                width: 430rpx;
-                height: 108rpx;
+
+              .r-shopping {
+                width   : 430rpx;
+                height  : 108rpx;
                 position: absolute;
-                bottom: 0;
-                display: flex;
-                .s-lower{
+                bottom  : 0;
+                display : flex;
+
+                .s-lower {
                   position: absolute;
-                  top: 0;
-                  left: 0;
-                  text{
+                  top     : 0;
+                  left    : 0;
+
+                  text {
                     font-size: 24rpx;
-                    color: rgb(241, 29, 29);
+                    color    : rgb(241, 29, 29);
                   }
                 }
-                .s-price{
-                  position: relative;
+
+                .s-price {
+                  position  : relative;
                   margin-top: 32rpx;
-                  .p-yuan{
-                    height: 34rpx;
+
+                  .p-yuan {
+                    height     : 34rpx;
                     line-height: 40rpx;
-                    font-size: 24rpx;
-                    margin-top: 13rpx;
-                    color: rgb(242, 29, 29);
+                    font-size  : 24rpx;
+                    margin-top : 13rpx;
+                    color      : rgb(242, 29, 29);
                   }
-                  .p-lowerPrice{
-                    height: 56rpx;
+
+                  .p-lowerPrice {
+                    height     : 56rpx;
                     line-height: 56rpx;
-                    font-size: 40rpx;
-                    color: rgb(242, 29, 29);
+                    font-size  : 40rpx;
+                    color      : rgb(242, 29, 29);
                   }
-                  .p-text{
-                    margin-top: 12rpx;
+
+                  .p-text {
+                    margin-top : 12rpx;
                     line-height: 40rpx;
-                    font-size: 24rpx;
-                    color: rgb(242, 29, 29);
+                    font-size  : 24rpx;
+                    color      : rgb(242, 29, 29);
                   }
-                  .p-originalPrice{
-                    margin-top: 12rpx;
-                    margin-left: 8rpx;
-                    line-height: 40rpx;
-                    font-size: 24rpx;
+
+                  .p-originalPrice {
+                    margin-top     : 12rpx;
+                    margin-left    : 8rpx;
+                    line-height    : 40rpx;
+                    font-size      : 24rpx;
                     text-decoration: line-through;
-                    color: rgb(136, 136, 136);
+                    color          : rgb(136, 136, 136);
                   }
                 }
-                .s-button{
-                  position: absolute;
-                  right: 0;
-                  width: 166rpx;
-                  height: 108rpx;
-                  display: flex;
+
+                .s-button {
+                  position   : absolute;
+                  right      : 0;
+                  width      : 166rpx;
+                  height     : 108rpx;
+                  display    : flex;
                   align-items: center;
-                  text{
-                    width: 148rpx;
-                    height: 54rpx;
-                    line-height: 54rpx;
-                    border-radius: 27rpx;
+
+                  text {
+                    width           : 148rpx;
+                    height          : 54rpx;
+                    line-height     : 54rpx;
+                    border-radius   : 27rpx;
                     background-color: rgb(255, 49, 67);
-                    color: rgb(255, 255, 255);
-                    text-align: center;
+                    color           : rgb(255, 255, 255);
+                    text-align      : center;
                   }
                 }
               }

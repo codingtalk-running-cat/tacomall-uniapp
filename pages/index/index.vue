@@ -155,12 +155,16 @@
 
 <script>
 import dayjs from 'dayjs'
+import imgLoader from '../../components/img-loader'
 
 const addZero = (t) => {
     return t < 10 ? '0' + t : t + '';
 }
 
 export default {
+    components: {
+        imgLoader
+    },
     data() {
         return {
             pageInfo: {

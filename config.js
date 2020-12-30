@@ -1,7 +1,7 @@
 /*
  * @Author: 码上talk|RC
  * @Date: 2020-06-09 23:20:26
- * @LastEditTime: 2020-12-13 17:58:35
+ * @LastEditTime: 2020-12-29 19:57:18
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/config.js
@@ -13,5 +13,6 @@ export const appConfig = {
     },
     tokenKey: 'user-access-token',
     historySearchKey: 'local-history-search',
-    apiUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:4000/' : 'https://apitc.codingtalk.cn/'
+    apiUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:4000/' : 'https://apitc.codingtalk.cn/',
+    ossUrl: process.env.NODE_ENV === 'development' ? '//codingtalk-imgtest.oss-cn-shenzhen.aliyuncs.com/' : '//img.codingtalk.cn/'
 }

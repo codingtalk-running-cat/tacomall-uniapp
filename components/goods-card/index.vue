@@ -1,7 +1,7 @@
 <!--
  * @Author: 码上talk|RC
  * @Date: 2020-10-26 14:44:28
- * @LastEditTime: 2020-12-09 19:09:07
+ * @LastEditTime: 2020-12-29 20:22:12
  * @LastEditors: 码上talk|RC
  * @Description: 
  * @FilePath: /tacomall-uniapp/components/goods-card/index.vue
@@ -13,9 +13,7 @@
     <view class="goods-card" @tap="navToGoodsDetail(goods)">
         <view class="c-top">
             <view class="t-pic">
-                <image
-                    src="http://img.youpin.mi-img.com/800_pic/c3c572d31db2e1531e4ad245b33885f1.png@base@tag=imgScale&h=350&w=350&et=1&eth=480&etw=480&etc=FFFFFF"
-                />
+                <img-loader :src="goods.cover"></img-loader>
             </view>
             <view class="t-desc">
                 <text>120X 超远变焦、120W秒充科技、120Hz 专业屏幕</text>
@@ -33,7 +31,11 @@
 </template>
 
 <script>
+import imgLoader from '../img-loader'
 export default {
+    components: {
+        imgLoader
+    },
     props: ['goods']
 }
 </script>
@@ -42,15 +44,11 @@ export default {
 .goods-card {
     width: 100%;
     .c-top {
-        padding: 0 28rpx;
+        padding: 28rpx;
         background: white;
         .t-pic {
             width: 100%;
             height: 319rpx;
-            image {
-                width: 100%;
-                height: 100%;
-            }
         }
         .t-desc {
             width: 100%;
