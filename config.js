@@ -13,6 +13,6 @@ export const appConfig = {
     },
     tokenKey: 'user-access-token',
     historySearchKey: 'local-history-search',
-    apiUrl: process.env.NODE_ENV === 'development' ? 'http://localhost:4000/' : 'https://apitc.codingtalk.cn/',
+    apiUrl: process.env.NODE_ENV === 'development' ? 'http://192.168.0.104:4000/' : 'https://apitc.codingtalk.cn/',
     ossUrl: process.env.NODE_ENV === 'development' ? '//codingtalk-imgtest.oss-cn-shenzhen.aliyuncs.com/' : '//img.codingtalk.cn/'
 }
